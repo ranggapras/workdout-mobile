@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -25,38 +17,20 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import Register from './src/screens/register'
+import Login from './src/screens/login'
+import Splash from './src/screens/splash';
+import Onboard from './src/screens/onboard';
+import Main from './src/screens/main';
+import { NativeBaseProvider } from 'native-base';
+
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <View>
-      <Text> Hello Tuhan </Text>
-    </View>
+      <Main/> 
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
