@@ -19,7 +19,7 @@ import {
 import { fontSize } from 'styled-system';
   import Logo from '../assets/logoworkdout.png'
   
-  const login2 = () => {
+  const login = ({navigation}) => {
       return (
         <NativeBaseProvider >
             <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="center">
@@ -39,19 +39,20 @@ import { fontSize } from 'styled-system';
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' />
+            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
           </FormControl>
             <FormControl.Label
               _text={{
-                color: 'coolGray.800',
+                color: 'white',
                 fontSize: 'xs',
                 fontWeight: 500,
               }}>
             </FormControl.Label>
             <FormControl>
-            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md'  />
+            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"  />
           </FormControl>
-          <Button mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'>
+          <Button ml= "3" mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'
+          onPress={() => navigation.navigate('Front',{ screen: 'Main' })}>
             Masuk
           </Button>
           <HStack mt="6" 
@@ -65,7 +66,7 @@ import { fontSize } from 'styled-system';
                 fontWeight: 'medium',
                 fontSize: 'sm',
               }}
-              href="#">
+              onPress={() => navigation.navigate('Register')}>
               Daftar
             </Link>
           </HStack>
@@ -75,5 +76,5 @@ import { fontSize } from 'styled-system';
       )
   }
   
-  export default login2
+  export default login
   

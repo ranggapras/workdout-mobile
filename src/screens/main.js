@@ -1,75 +1,98 @@
-import {
+  import React from 'react';
+  import { TouchableOpacity,View,Text } from 'react-native';
+  import Icon from 'react-native-vector-icons/FontAwesome5';
+  import {
     NativeBaseProvider,
-    Box,
-    Text,
+    Box, 
     Heading,
     VStack,
     FormControl,
     Input,
     Link,
     Button,
-    Icon,
-    IconButton,
     HStack,
     Divider,
     Image
   } from 'native-base';
+  import { NavigationContainer } from '@react-navigation/native';
+  import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+  import Calendar from '../assets/calendar.svg';
+  import Calculator from '../assets/calculator.svg'
+  import Member from '../assets/member.svg'
+  import Topup from '../assets/topup.svg'
+  import Cart from '../assets/cart.svg'
+  import Bell from '../assets/bell.svg'
 
-  import React from 'react'
   
   const main = () => {
       return (
+        <View style={{flex:1,backgroundColor:'#253334'}}> 
         <NativeBaseProvider >
-            <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="center">
-            <Image source={require('../assets/logo.png')} size="sm" marginX="2" alt="logo" />
-                <Heading size="lg" fontWeight="600" color="#FFFFFF" mt="5" marginX="15">
-                    Halo Eka
-                </Heading>
-                <Heading mt="1" color="#BEC2C2" fontWeight="medium" size="md" mt="5" marginX="15" marginBottom="35" >
-                    Siap untuk olahraga hari ini?
-                </Heading>
-                <VStack space={3} mt="5" marginX="15">
-          <FormControl>
-            <FormControl.Label
-              _text={{
-                color: 'coolGray.800',
-                fontSize: 'xs',
-                fontWeight: 500,
-              }}>
-            </FormControl.Label>
-            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' />
-          </FormControl>
-            <FormControl.Label
-              _text={{
-                color: 'coolGray.800',
-                fontSize: 'xs',
-                fontWeight: 500,
-              }}>
-            </FormControl.Label>
-            <FormControl>
-            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md'  />
-          </FormControl>
-          <Button mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'>
-            Masuk
-          </Button>
-          <HStack mt="6" 
-          justifyContent="center">
-            <Text fontSize="sm" color="#FFFFFF" fontWeight={400}>
-              Belum Punya Akun?{' '}
-            </Text>
-            <Link
-              _text={{
-                color: "#FFFFFF",
-                fontWeight: 'medium',
-                fontSize: 'sm',
-              }}
-              href="#">
-              Daftar
-            </Link>
-          </HStack>
-        </VStack>
+        <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" >
+        <Box flexDirection="row" justifyContent='space-between'>
+        <Image source={require('../assets/logo.png')} size="sm" marginX="2" alt="logo" />
+        <View style={{flexDirection:"row",marginTop:10}}>
+          <TouchableOpacity style={{marginRight:15}} onPress={()=>console.log('dhjksds')}>
+          <Cart/>
+          </TouchableOpacity>
+          <TouchableOpacity style={{marginRight:10}} onPress={()=>console.log('dhjksds')}>
+          <Bell/>
+          </TouchableOpacity>
+          </View>
+        </Box> 
+            <Heading size="lg" fontWeight="600" color="#FFFFFF" mt="5" marginX="15">
+                Halo Eka
+            </Heading>
+            <Heading mt="1" color="#BEC2C2" fontWeight="medium" size="md" mt="5" marginX="15" marginBottom="35" >
+                Siap untuk olahraga hari ini?
+            </Heading>
+            <Box flexDirection="row" justifyContent="space-between" w='80%' alignSelf='center'>
+            <Box flex={1} flexDirection="column"w="160" h="50" pt="0.5" pl="5" borderRadius="120" backgroundColor="#CBF3E8">
+              <Text style={{color:"#3A5051",fontSize:14}}>Saldo:</Text>
+              <Text style={{color:"black",fontSize:18,fontWeight:"bold"}}>Rp4.000.000</Text>
             </Box>
-          </NativeBaseProvider>
+            <Box flex={1} flexDirection='row' w="160" h="50" borderRadius="120" ml="-60" justifyContent= 'center' alignItems= 'center' backgroundColor="#58B4A7">
+            <Topup />
+            <Text style={{color:"white",fontSize:22,marginLeft:5}}>Top-up</Text>
+            </Box>
+            </Box>
+            <View style={{flex:1,flexDirection:"row",marginTop:40,justifyContent: 'space-between' }}>
+            <View style={{flex:1,alignItems: 'center',}}>
+            <TouchableOpacity  onPress={()=>console.log('dhjksds')}>
+            <View style={{paddingLeft:18 , width:62,height:60,backgroundColor:"white",justifyContent: 'center', borderRadius:20}}>
+            <Calendar/>
+            </View>
+            </TouchableOpacity>
+            <Text style={{color:"white",marginTop: 5,fontSize: 12, }}>
+            {`Jadwal\nWorkout`}
+          </Text>
+            </View>
+            <View style={{flex:1,alignItems: 'center',}}>
+            <TouchableOpacity  onPress={()=>console.log('dhjksds')}>
+            <View style={{paddingLeft:14,width:62,height:60,backgroundColor:"white",justifyContent: 'center', borderRadius:20}}> 
+            <Calculator/>
+           </View>
+           </TouchableOpacity>
+           <Text style={{color:"white",marginTop: 5,fontSize: 12 }}>
+            Kalkulator
+          </Text>
+           </View>
+           <View style={{flex:1,alignItems: 'center',}}>
+           <TouchableOpacity  onPress={()=>console.log('dhjksds')}>
+           <View style={{paddingLeft:14,width:62,height:60,backgroundColor:"white",justifyContent: 'center', borderRadius:20}}>
+           <Member/>
+           </View>
+           </TouchableOpacity>
+           <Text style={{color:"white",marginTop: 5,fontSize: 12 }}>
+            Membership
+          </Text>
+          </View>
+          </View>
+            <Image source={require('../assets/pt.png')} h="317" w="375" marginX="2" alt="logo" />
+            
+        </Box>
+      </NativeBaseProvider>
+      </View>
       )
   }
   
