@@ -17,7 +17,7 @@ import {
 
   import React from 'react'
   
-  const register = () => {
+  const register = ({navigation}) => {
       return (
         <NativeBaseProvider>
             <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="center">

@@ -19,6 +19,9 @@ import Splash from './src/screens/splash';
 import Onboard from './src/screens/onboard';
 import Main from './src/screens/main';
 import Product from './src/screens/product';
+import Profile from './src/screens/profile';
+import Editprofile from './src/screens/editprofile';
+import Kalkulator from './src/screens/kalkulator';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,6 +33,7 @@ const TabNavigator = () => {
     <Tab.Navigator screenOptions={{headerShown:false}}>
       <Tab.Screen name="Main" component={Main}  />
       <Tab.Screen name="Prodcut" component={Product} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   )
 }
@@ -45,6 +49,8 @@ const App = () => {
     <Stack.Screen name="Onboard" component={Onboard} />
     <Stack.Screen name="Register" component={Register} />
     <Stack.Screen name="Login" component={Login} />
+    <Stack.Screen name="Editprofile" component={Editprofile}/>
+    <Stack.Screen name="Kalkulator" component={Kalkulator}/>
     <Stack.Screen
     name="Front"
     component={TabNavigator}

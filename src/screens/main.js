@@ -24,7 +24,7 @@
   import Bell from '../assets/bell.svg'
 
   
-  const main = () => {
+  const main = ({navigation}) => {
       return (
         <View style={{flex:1,backgroundColor:'#253334'}}> 
         <NativeBaseProvider >
@@ -68,7 +68,7 @@
           </Text>
             </View>
             <View style={{flex:1,alignItems: 'center',}}>
-            <TouchableOpacity  onPress={()=>console.log('dhjksds')}>
+            <TouchableOpacity  onPress={()=>navigation.navigate('Kalkulator')}>
             <View style={{paddingLeft:14,width:62,height:60,backgroundColor:"white",justifyContent: 'center', borderRadius:20}}> 
             <Calculator/>
            </View>
@@ -88,7 +88,7 @@
           </Text>
           </View>
           </View>
-            <Image source={require('../assets/pt.png')} h="317" w="375" marginX="2" alt="logo" />
+          <Image source={require('../assets/pt.png')} h="250" w="370" marginX="2" alt="logo" />
             
         </Box>
       </NativeBaseProvider>
