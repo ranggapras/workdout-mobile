@@ -24,13 +24,13 @@ import Back from '../assets/back.svg'
   const editprofile = ({navigation}) => {
       return (
         <NativeBaseProvider >
-            <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="center">
+            <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
             <Box flexDirection="row" justifyContent='space-between' pl='4'>
              <TouchableOpacity onPress={() => navigation.goBack()}>
              <Back/>   
              </TouchableOpacity>
         </Box>
-        <Box alignItems='center'> 
+        <Box alignItems='center' marginTop='32'> 
         <Image source={require('../assets/profil.png')} size="150" marginX="2" alt="logo" />
         <Text mt='6' color='white' fontWeight='bold' fontSize='30'>Eka</Text>
         <Text mt='6' pb='4'w='100%' borderWidth="0" borderColor="white" borderBottomWidth="2" color='white' textAlign='center'>Profil</Text>
@@ -51,6 +51,5 @@ import Back from '../assets/back.svg'
           </NativeBaseProvider>
       )
   }
-  
   export default editprofile
   

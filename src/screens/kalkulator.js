@@ -18,10 +18,11 @@ import {
   import React from 'react'
 import { TouchableOpacity } from 'react-native';
 import Back from '../assets/back.svg'
-
+import { useState } from 'react';
 
   
   const kalkulator = ({navigation}) => {
+    
       return (
         <NativeBaseProvider >
             <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
@@ -35,7 +36,7 @@ import Back from '../assets/back.svg'
         Kalkulator
         </Heading>
         <VStack space={3} mt="5" marginX="15" alignItems= 'center'>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Kalkulatorkalori")}>
             <Box mt="50" h='71' w='284' bgColor="#CBF3E8" justifyContent='center' borderRadius="30">
             <Text color='black' fontWeight='bold' textAlign='center' fontSize="16">
                 KALKULATOR HARIAN

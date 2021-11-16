@@ -22,6 +22,8 @@ import Product from './src/screens/product';
 import Profile from './src/screens/profile';
 import Editprofile from './src/screens/editprofile';
 import Kalkulator from './src/screens/kalkulator';
+import Kalkulatorkalori from './src/screens/kalkulatorkalori';
+import Hasil from './src/screens/hasil';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,6 +53,8 @@ const App = () => {
     <Stack.Screen name="Login" component={Login} />
     <Stack.Screen name="Editprofile" component={Editprofile}/>
     <Stack.Screen name="Kalkulator" component={Kalkulator}/>
+    <Stack.Screen name="Kalkulatorkalori" component={Kalkulatorkalori}/>
+    <Stack.Screen name="Hasil" component={Hasil}/>
     <Stack.Screen
     name="Front"
     component={TabNavigator}
