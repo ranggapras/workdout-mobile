@@ -43,7 +43,7 @@ import { useState } from 'react';
             </Text>
             </Box>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Kalkulatorbb")}>
             <Box mt="50" h='71' w='284' bgColor="#CBF3E8" justifyContent='center' borderRadius="30" >
             <Text color='black'fontWeight='bold' textAlign='center' fontSize="16">
                 INDEKS MASSA TUBUH

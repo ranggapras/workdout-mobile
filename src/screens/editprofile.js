@@ -30,7 +30,7 @@ import Back from '../assets/back.svg'
              <Back/>   
              </TouchableOpacity>
         </Box>
-        <Box alignItems='center' marginTop='32'> 
+        <Box alignItems='center' marginTop='10'> 
         <Image source={require('../assets/profil.png')} size="150" marginX="2" alt="logo" />
         <Text mt='6' color='white' fontWeight='bold' fontSize='30'>Eka</Text>
         <Text mt='6' pb='4'w='100%' borderWidth="0" borderColor="white" borderBottomWidth="2" color='white' textAlign='center'>Profil</Text>

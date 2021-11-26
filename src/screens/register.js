@@ -73,7 +73,8 @@ import {
             </FormControl.Label>
             <Input type="password" placeholder="Konfirmasi Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
           </FormControl>
-          <Button mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'>
+          <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'
+          onPress={() => navigation.navigate("Login")}>
             Daftar
           </Button>
           <HStack mt="6" justifyContent="center">
@@ -86,7 +87,7 @@ import {
                 fontWeight: 'medium',
                 fontSize: 'sm',
               }}
-              href="#">
+              onPress={() => navigation.navigate("Login")}>
               Masuk
             </Link>
           </HStack>

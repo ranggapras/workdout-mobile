@@ -32,7 +32,7 @@ import { fontSize } from 'styled-system';
           </TouchableOpacity>
           </Box>
         </Box>
-        <Box alignItems='center' mt='20'> 
+        <Box alignItems='center' mt='1'> 
         <Image source={require('../assets/profil.png')} size="150" marginX="2" alt="logo" />
         <Text mt='6' color='white' fontWeight='bold' fontSize='30'>Eka</Text>
         <Text mt='6' pb='4'w='100%' borderWidth="0" borderColor="white" borderBottomWidth="2" color='white' textAlign='center'>Profil</Text>
