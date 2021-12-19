@@ -4,7 +4,13 @@ import Voucher from '../assets/Voucher.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const pembayaran = () => {
-    const [check, setCheck] = useState(false);
+    const [bayarDitempat, setBayarDitempat] = useState(false);
+    const [midtrans, setMidtrans] = useState(false);
+
+    const press = () => {
+        setBayarDitempat(!bayarDitempat)
+        setMidtrans(!midtrans)
+    }
 
     return (
         <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -22,13 +28,13 @@ const pembayaran = () => {
                             marginLeft: 10
                         }}>Bayar Di Tempat Gym</Text>
                     </View>
-                    <TouchableOpacity onPress={() => setCheck(!check)}>
+                    <TouchableOpacity onPress={press}>
                         <View style={{
                             width: 25,
                             height: 25,
                             borderRadius: 50,
-                            backgroundColor: check ? '#58B4A7' : '#253334',
-                            borderWidth: check ? 0 : 2,
+                            backgroundColor: bayarDitempat ? '#58B4A7' : '#253334',
+                            borderWidth: bayarDitempat ? 0 : 2,
                             borderColor: '#58B4A7'
                         }}></View>
                     </TouchableOpacity>
@@ -46,13 +52,13 @@ const pembayaran = () => {
                             marginLeft: 10
                         }}>MidTrans</Text>
                     </View>
-                    <TouchableOpacity onPress={() => setCheck(!check)}>
+                    <TouchableOpacity onPress={press}>
                         <View style={{
                             width: 25,
                             height: 25,
                             borderRadius: 50,
-                            backgroundColor: check ? '#58B4A7' : '#253334',
-                            borderWidth: check ? 0 : 2,
+                            backgroundColor: midtrans ? '#58B4A7' : '#253334',
+                            borderWidth: midtrans ? 0 : 2,
                             borderColor: '#58B4A7'
                         }}></View>
                     </TouchableOpacity>

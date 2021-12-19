@@ -26,7 +26,7 @@ const hasil = ({ navigation }) => {
     <NativeBaseProvider >
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
         <Box flexDirection="row" justifyContent='space-between' pl='4' mb='4'>
-          <TouchableOpacity onPress={() => navigation.navigate("Front")}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Back />
           </TouchableOpacity>
         </Box>

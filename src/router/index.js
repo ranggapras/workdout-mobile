@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, Image } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer } from '../screens';
+import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer, Tabel } from '../screens';
 import Back from '../assets/back-dark.svg'
 import BackLight from '../assets/back.svg'
 import Cart from '../assets/cartb.svg'
@@ -681,6 +681,22 @@ const Router = () => {
         headerBackVisible: false
       })} />
       <Stack.Screen name="PersonalTrainer" component={PersonalTrainer} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#253334',
+          height: 70,
+        },
+        headerShadowVisible: false,
+        headerTitle: () => {
+          return (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackLight />
+            </TouchableOpacity>
+          )
+        },
+        headerTitleAlign: 'left',
+        headerBackVisible: false
+      })} />
+      <Stack.Screen name="Tabel" component={Tabel} options={({ navigation, route }) => ({
         headerStyle: {
           backgroundColor: '#253334',
           height: 70,

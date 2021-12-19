@@ -9,12 +9,12 @@ const splash = ({ navigation }) => {
     setTimeout(async () => {
       const jsonValue = await AsyncStorage.getItem('token');
       const res = await JSON.parse(jsonValue);
-      const response = await Models.login(res);
-      console.log(response);
-      if (response.code === 200) {
+      console.log(jsonValue)
+      if (jsonValue == null) {
+        return navigation.replace('Onboard');
+      } else {
         return navigation.replace('App');
       }
-      return navigation.replace('Onboard');
     }, 3000)
   }, [navigation]);
 
