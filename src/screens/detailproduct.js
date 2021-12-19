@@ -53,7 +53,9 @@ const detailproduct = ({ navigation }) => {
                     paddingVertical: 10,
                     backgroundColor: '#58B4A7'
                 }}
-                onPress={() => navigation.navigate('Checkout')}>
+                onPress={() => navigation.navigate('Checkout', {
+                    broadcast: 'produk',
+                })}>
                     <Text style={{ color: '#fff', fontSize: 24, fontWeight: '700' }}>Beli Sekarang</Text>
                 </TouchableOpacity>
             </View>

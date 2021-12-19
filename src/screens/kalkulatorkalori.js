@@ -18,7 +18,7 @@ import {
 
 import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Back from '../assets/back.svg'
 import Laki from '../assets/lk.svg'
 import Perempuan from '../assets/pr.svg'
@@ -111,23 +111,23 @@ const kalkulatorkalori = ({ navigation }) => {
             }}>
               Aktivitas
             </FormControl.Label>
-
-            <Picker
-              style={{ width: 310, backgroundColor: 'white', borderRadius: 10 }}
-              mode='dropdown'
-              selectedValue={aktivitas}
-              onValueChange={(itemValue, itemIndex) =>
-                setAktivitas(itemValue)
-              }>
-              <Picker.Item label="Aerobik" value="aerobik" />
-              <Picker.Item label="Aktivitas Berat Lainnya" value="abl" />
-              <Picker.Item label="Aktivitas Sedang Lainnya" value="asl" />
-              <Picker.Item label="Aktivitas Ringan Lainnya" value="arl" />
-              <Picker.Item label="Aku Berjalan" value="as" />
-              <Picker.Item label="Tidak Berlari" value="sd" />
-              <Picker.Item label="Lalu kita bawa keliling kota" value="ds" />
-
-            </Picker>
+            <View style={{ width: 310, borderRadius: 10, height: 37, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+              <Picker
+                style={{ width: 310, backgroundColor: 'white', height: 37, borderRadius: 10 }}
+                mode='dropdown'
+                selectedValue={aktivitas}
+                onValueChange={(itemValue, itemIndex) =>
+                  setAktivitas(itemValue)
+                }>
+                <Picker.Item label="Aerobik" value="aerobik" />
+                <Picker.Item label="Aktivitas Berat Lainnya" value="abl" />
+                <Picker.Item label="Aktivitas Sedang Lainnya" value="asl" />
+                <Picker.Item label="Aktivitas Ringan Lainnya" value="arl" />
+                <Picker.Item label="Aku Berjalan" value="as" />
+                <Picker.Item label="Tidak Berlari" value="sd" />
+                <Picker.Item label="Lalu kita bawa keliling kota" value="ds" />
+              </Picker>
+            </View>
           </FormControl>
 
           <TouchableOpacity onPress={() => navigation.navigate("Hasil")} >

@@ -6,10 +6,32 @@ import Mp from '../assets/mp.svg'
 import Kirim from '../assets/buttonPengiriman.svg'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const checkout = ({ navigation }) => {
-    return (
-        <View style={{ flex: 1 }}>
-            <ScrollView>
+const checkout = ({ route, navigation }) => {
+    const { broadcast } = route.params;
+
+    console.log(broadcast);
+
+    const CheckoutProduct = () => {
+        if (broadcast === 'jadwal') {
+            return <View style={{
+                width: wp('100%'),
+                alignItems: 'center',
+                paddingVertical: 80,
+                borderBottomWidth: 1,
+                borderColor: '#58B4A7'
+            }}>
+                <Text style={styles.checkOut}>Jadwal Gym</Text>
+                <Text style={styles.checkOut}>Senin 1 Nov 2021</Text>
+                <Text style={styles.checkOut}>8:30 - 9:30</Text>
+                <Text style={{
+                    color: '#4CE6D4',
+                    marginTop: 20,
+                    fontSize: 24,
+                }}>Rp. 40.000</Text>
+            </View>
+        }
+        if (broadcast === 'produk') {
+            return <View>
                 <View style={styles.containerCart}>
                     <Image source={Gambar} style={{ width: 80, height: 80 }} />
                     <View style={{ flexDirection: 'column', height: 60, justifyContent: 'space-between' }}>
@@ -30,6 +52,30 @@ const checkout = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
+            </View>
+        }
+        if (broadcast === 'member') {
+            return <View style={{
+                width: wp('100%'),
+                alignItems: 'center',
+                paddingVertical: 80,
+                borderBottomWidth: 1,
+                borderColor: '#58B4A7'
+            }}>
+                <Text style={styles.checkOut}>Berlangganan Membership</Text>
+                <Text style={{
+                    color: '#4CE6D4',
+                    marginTop: 20,
+                    fontSize: 24,
+                }}>5 sesi pertemuan / 35 hari</Text>
+            </View>
+        }
+    }
+
+    return (
+        <View style={{ flex: 1 }}>
+            <ScrollView>
+                <CheckoutProduct />
                 <View style={styles.container}>
                     <Text style={{
                         color: '#fff',

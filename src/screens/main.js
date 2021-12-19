@@ -47,7 +47,7 @@ const main = ({ navigation }) => {
           </Box>
           <View style={{ flex: 1, flexDirection: "row", marginTop: 40, justifyContent: 'space-between' }}>
             <View style={{ flex: 1, alignItems: 'center', }}>
-              <TouchableOpacity onPress={() => console.log('dhjksds')}>
+              <TouchableOpacity onPress={() => navigation.navigate('JadwalWorkout')}>
                 <View style={{ paddingLeft: 18, width: 62, height: 60, backgroundColor: "white", justifyContent: 'center', borderRadius: 20 }}>
                   <Calendar />
                 </View>
@@ -67,7 +67,7 @@ const main = ({ navigation }) => {
               </Text>
             </View>
             <View style={{ flex: 1, alignItems: 'center', }}>
-              <TouchableOpacity onPress={() => console.log('dhjksds')}>
+              <TouchableOpacity onPress={() => navigation.navigate('Membership')}>
                 <View style={{ paddingLeft: 14, width: 62, height: 60, backgroundColor: "white", justifyContent: 'center', borderRadius: 20 }}>
                   <Member />
                 </View>

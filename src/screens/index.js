@@ -20,5 +20,8 @@ import OpsiKirim from "./pengiriman"
 import Voucher from "./voucher"
 import Pembayaran from "./pembayaran"
 import PesananSelesai from "./pesananselesai"
+import JadwalWorkout from "./jadwalworkout"
+import Membership from './membership'
+import DetailWorkout from "./detailworkout";
 
-export { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai }
+export { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout }

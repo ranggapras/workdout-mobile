@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, Image } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai } from '../screens';
+import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout } from '../screens';
 import Back from '../assets/back-dark.svg'
+import BackLight from '../assets/back.svg'
 import Cart from '../assets/cartb.svg'
 import CartWhite from '../assets/cart.svg'
 import Bell from '../assets/bellb.svg'
@@ -575,6 +576,94 @@ const Router = () => {
         },
       })} />
       <Stack.Screen name="PesananSelesai" component={PesananSelesai} options={{ headerShown: false }} />
+      <Stack.Screen name="JadwalWorkout" component={JadwalWorkout} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#253334',
+          height: 70,
+        },
+        headerShadowVisible: false,
+        headerTitle: () => {
+          return (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackLight />
+            </TouchableOpacity>
+          )
+        },
+        headerTitleAlign: 'left',
+        headerBackVisible: false
+      })} />
+      <Stack.Screen name="Membership" component={Membership} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#253334',
+          height: 70,
+        },
+        headerShadowVisible: false,
+        headerTitle: () => {
+          return (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackLight />
+            </TouchableOpacity>
+          )
+        },
+        headerTitleAlign: 'left',
+        headerBackVisible: false
+      })} />
+      <Stack.Screen name="DetailWorkout" component={DetailWorkout} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#87ADA3',
+          height: 70
+        },
+        headerBackVisible: false,
+        headerTitle: () => {
+          return (
+            <View>
+            </View>
+          )
+        },
+        headerRight: () => {
+          return (
+            <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 0 }}>
+              <TouchableOpacity>
+                <Cart />
+                <Badge
+                  status="error"
+                  value={5}
+                  containerStyle={{ position: 'absolute', top: -8, right: -5, zIndex: 2 }}
+                  textStyle={{
+                    color: '#000',
+                    fontWeight: '800'
+                  }}
+                  badgeStyle={{
+                    backgroundColor: '#CBF3E8',
+                  }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Bell />
+                <Badge
+                  status="error"
+                  value={5}
+                  containerStyle={{ position: 'absolute', top: -8, right: -5, zIndex: 2 }}
+                  textStyle={{
+                    color: '#000',
+                    fontWeight: '800'
+                  }}
+                  badgeStyle={{
+                    backgroundColor: '#CBF3E8',
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          )
+        },
+        headerLeft: () => {
+          return (
+            <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.goBack()}>
+              <Back />
+            </TouchableOpacity>
+          )
+        },
+      })} />
       <Stack.Screen name="App" component={App} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

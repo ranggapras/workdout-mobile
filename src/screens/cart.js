@@ -40,7 +40,9 @@ const cart = ({ navigation }) => {
                     <Text style={styles.teksSubtotal}>SubTotal</Text>
                     <Text style={styles.teksHarga}>Rp 55.000</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('Checkout')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
+                    broadcast: 'produk',
+                })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Checkout(1)</Text>
                     </View>
