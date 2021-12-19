@@ -27,31 +27,41 @@ const jadwalworkout = ({ navigation }) => {
                         bulan={'November'}
                         tahun={'2021'}
                         harga={'40.000'}
-                        navigation={() => navigation.navigate('DetailWorkout')} />
+                        navigation={() => navigation.navigate('DetailWorkout', {
+                            information: '',
+                        })} />
                     <JadwalItem
                         tanggal={'8 - 13'}
                         bulan={'November'}
                         tahun={'2021'}
                         harga={'70.000'}
-                        navigation={() => navigation.navigate('DetailWorkout')} />
+                        navigation={() => navigation.navigate('DetailWorkout', {
+                            information: '',
+                        })} />
                     <JadwalItem
                         tanggal={'15 - 21'}
                         bulan={'November'}
                         tahun={'2021'}
                         harga={'40.000'}
-                        navigation={() => navigation.navigate('DetailWorkout')} />
+                        navigation={() => navigation.navigate('DetailWorkout', {
+                            information: '',
+                        })} />
                     <JadwalItem
                         tanggal={'22 - 28'}
                         bulan={'November'}
                         tahun={'2021'}
                         harga={'40.000'}
-                        navigation={() => navigation.navigate('DetailWorkout')} />
+                        navigation={() => navigation.navigate('DetailWorkout', {
+                            information: '',
+                        })} />
                     <JadwalItem
                         tanggal={'1 - 5'}
                         bulan={'Desember'}
                         tahun={'2021'}
                         harga={'50.000'}
-                        navigation={() => navigation.navigate('DetailWorkout')} />
+                        navigation={() => navigation.navigate('DetailWorkout', {
+                            information: '',
+                        })} />
                 </View>
             </ScrollView>
         </View>

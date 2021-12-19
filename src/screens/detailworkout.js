@@ -3,8 +3,154 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'rea
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import RincianJadwal from '../components/RincianJadwal';
 import Crown from '../assets/crown.png'
+import Foto from '../assets/trainer.png'
 
-const detailworkout = ({ navigation }) => {
+const detailworkout = ({ route, navigation }) => {
+    const { information } = route.params;
+
+    const PersonTrainer = () => {
+        if (information == '') {
+            return <View style={{
+                width: wp('100%'),
+                alignItems: 'flex-end',
+                paddingHorizontal: 20,
+                marginTop: 60,
+            }}>
+                <TouchableOpacity style={{
+                    width: 180,
+                    height: 40,
+                    backgroundColor: '#fff',
+                    flexDirection: 'row',
+                    position: 'relative',
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'space-evenly'
+                }}
+                    onPress={() => navigation.navigate('PersonalTrainer')}>
+                    <Image source={Crown} style={{
+                        position: 'absolute',
+                        top: -30,
+                        left: 0,
+                        width: 45
+                    }} />
+                    <Text style={{
+                        color: '#253334',
+                        fontSize: 18,
+                        fontWeight: '700'
+                    }}>Personal Trainer</Text>
+                    <View style={{
+                        width: 25,
+                        height: 25,
+                        borderRadius: 50,
+                        backgroundColor: '#253334',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'row'
+                    }}>
+                        <Text style={{
+                            color: '#fff',
+                            fontWeight: '700',
+                            fontSize: 18,
+                            textAlign: 'center',
+                            textAlignVertical: 'center'
+                        }}>+</Text>
+                    </View>
+                </TouchableOpacity>
+                <View style={{
+                    width: 180,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                    marginBottom: 40
+                }}>
+                    <Text style={{
+                        color: '#58B4A7',
+                        fontWeight: '700',
+                        fontSize: 18,
+                        marginRight: 5
+                    }}>Sisa PT : </Text>
+                    <Text style={styles.teks}>-</Text>
+                </View>
+            </View>
+        }
+        return <View style={{
+            width: wp('100%'),
+            alignItems: 'flex-end',
+            paddingHorizontal: 20,
+            marginTop: 60,
+        }}>
+            <View style={{
+                width: wp('90%'),
+                height: 60,
+                backgroundColor: '#fff',
+                borderRadius: 20,
+                paddingHorizontal: 5,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                position: 'relative'
+            }}>
+                <View style={{
+                    height: 60,
+                    paddingVertical: 5,
+                    marginLeft: 5,
+                    marginTop: 5
+                }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('PersonalTrainer')}>
+                        <View style={{
+                            width: 25,
+                            height: 25,
+                            borderRadius: 50,
+                            backgroundColor: '#253334',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'row',
+                        }}>
+                            <Text style={{
+                                color: '#fff',
+                                fontWeight: '700',
+                                fontSize: 18,
+                                textAlign: 'center',
+                                textAlignVertical: 'center'
+                            }}>-</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={{
+                        color: '#333',
+                        position: 'absolute',
+                        left: 10,
+                        bottom: 2,
+                        width: 200
+                    }}>Personal Trainer</Text>
+                </View>
+                <Text style={{
+                    color: '#253334',
+                    fontSize: 24,
+                    fontWeight: '700'
+                }}>{information}</Text>
+                <Image source={Foto} style={{
+                    height: 55,
+                    width: 55,
+                    borderRadius: 20
+                }} />
+            </View>
+            <View style={{
+                width: '100%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: 10,
+                marginBottom: 40
+            }}>
+                <Text style={{
+                    color: '#58B4A7',
+                    fontWeight: '700',
+                    fontSize: 18,
+                    marginRight: 5
+                }}>Sisa PT : </Text>
+                <Text style={styles.teks}>4/5</Text>
+            </View>
+        </View>
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -84,67 +230,7 @@ const detailworkout = ({ navigation }) => {
                     tanggal={'6 Nov 2021'}
                     kuota={1} />
 
-                <View style={{
-                    width: wp('100%'),
-                    alignItems: 'flex-end',
-                    paddingHorizontal: 20,
-                    marginTop: 60,
-                }}>
-                    <TouchableOpacity style={{
-                        width: 180,
-                        height: 40,
-                        backgroundColor: '#fff',
-                        flexDirection: 'row',
-                        position: 'relative',
-                        borderRadius: 10,
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly'
-                    }}>
-                        <Image source={Crown} style={{
-                            position: 'absolute',
-                            top: -30,
-                            left: 0,
-                            width: 45
-                        }} />
-                        <Text style={{
-                            color: '#253334',
-                            fontSize: 18,
-                            fontWeight: '700'
-                        }}>Personal Trainer</Text>
-                        <View style={{
-                            width: 25,
-                            height: 25,
-                            borderRadius: 50,
-                            backgroundColor: '#253334',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexDirection: 'row'
-                        }}>
-                            <Text style={{
-                                color: '#fff',
-                                fontWeight: '700',
-                                fontSize: 18,
-                                textAlign: 'center',
-                                textAlignVertical: 'center'
-                            }}>+</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <View style={{
-                        width: 180,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginTop: 10,
-                        marginBottom: 40
-                    }}>
-                        <Text style={{
-                            color: '#58B4A7',
-                            fontWeight: '700',
-                            fontSize: 18,
-                            marginRight: 5
-                        }}>Sisa PT : </Text>
-                        <Text style={styles.teks}>-</Text>
-                    </View>
-                </View>
+                <PersonTrainer />
             </ScrollView>
 
             <View style={styles.ContainerCheckout}>

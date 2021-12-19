@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, Image } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout } from '../screens';
+import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer } from '../screens';
 import Back from '../assets/back-dark.svg'
 import BackLight from '../assets/back.svg'
 import Cart from '../assets/cartb.svg'
@@ -39,7 +39,7 @@ const App = () => {
         headerRight: () => {
           return (
             <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 20 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
                 <CartWhite />
                 <Badge
                   status="error"
@@ -106,7 +106,7 @@ const App = () => {
         headerRight: () => {
           return (
             <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 20 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
                 <Cart />
                 <Badge
                   status="error"
@@ -243,7 +243,7 @@ const Router = () => {
         headerRight: () => {
           return (
             <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 0 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
                 <Cart />
                 <Badge
                   status="error"
@@ -278,7 +278,7 @@ const Router = () => {
         },
         headerLeft: () => {
           return (
-            <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.navigate('Produk')}>
+            <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.goBack()}>
               <Back />
             </TouchableOpacity>
           )
@@ -316,7 +316,7 @@ const Router = () => {
         headerRight: () => {
           return (
             <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 0 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
                 <Cart />
                 <Badge
                   status="error"
@@ -351,7 +351,7 @@ const Router = () => {
         },
         headerLeft: () => {
           return (
-            <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.navigate('Produk')}>
+            <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.goBack()}>
               <Back />
             </TouchableOpacity>
           )
@@ -389,7 +389,7 @@ const Router = () => {
         headerRight: () => {
           return (
             <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 0 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
                 <Cart />
                 <Badge
                   status="error"
@@ -623,7 +623,7 @@ const Router = () => {
         headerRight: () => {
           return (
             <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 0 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
                 <Cart />
                 <Badge
                   status="error"
@@ -663,6 +663,38 @@ const Router = () => {
             </TouchableOpacity>
           )
         },
+      })} />
+      <Stack.Screen name="Terdaftar" component={Terdaftar} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#253334',
+          height: 70,
+        },
+        headerShadowVisible: false,
+        headerTitle: () => {
+          return (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackLight />
+            </TouchableOpacity>
+          )
+        },
+        headerTitleAlign: 'left',
+        headerBackVisible: false
+      })} />
+      <Stack.Screen name="PersonalTrainer" component={PersonalTrainer} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#253334',
+          height: 70,
+        },
+        headerShadowVisible: false,
+        headerTitle: () => {
+          return (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackLight />
+            </TouchableOpacity>
+          )
+        },
+        headerTitleAlign: 'left',
+        headerBackVisible: false
       })} />
       <Stack.Screen name="App" component={App} options={{ headerShown: false }} />
     </Stack.Navigator>

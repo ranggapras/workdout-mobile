@@ -72,6 +72,16 @@ const checkout = ({ route, navigation }) => {
         }
     }
 
+    const Pesan = () => {
+        if (broadcast === 'member') {
+            navigation.navigate('Terdaftar')
+            console.log('member terdaftar')
+        } else {
+            navigation.navigate('PesananSelesai')
+            console.log('pesanan produk atau jadwal')
+        }
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollView>
@@ -194,7 +204,7 @@ const checkout = ({ route, navigation }) => {
                     <Text style={styles.teksSubtotal}>Total Pembayaran</Text>
                     <Text style={styles.teksHarga}>Rp 60.000</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('PesananSelesai')}>
+                <TouchableOpacity onPress={Pesan}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Buat Pesanan</Text>
                     </View>

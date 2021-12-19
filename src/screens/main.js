@@ -1,5 +1,5 @@
-import React from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { TouchableOpacity, View, Text, BackHandler, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {
   NativeBaseProvider,
@@ -25,6 +25,24 @@ import Bell from '../assets/bell.svg'
 
 
 const main = ({ navigation }) => {
+  const backAction = () => {
+    if (navigation.isFocused()) {
+      Alert.alert('Keluar', 'Apakah anda yakin akan keluar dari aplikasi?', [
+        {
+          text: 'Tidak',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'Keluar', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: '#253334' }}>
       <NativeBaseProvider >

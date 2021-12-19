@@ -111,7 +111,7 @@ const loginReq = async () => {
             />
           </FormControl>
           <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'
-            onPress={()=>loginReq}>
+            onPress={loginReq}>
             Masuk
           </Button>
           <HStack mt="6"
