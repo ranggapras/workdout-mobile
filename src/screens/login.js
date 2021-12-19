@@ -15,11 +15,64 @@ import {
   Image
 } from 'native-base';
 
-import React from 'react'
+import React,{useState} from 'react'
 import { fontSize } from 'styled-system';
 import Logo from '../assets/logoworkdout.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Models from '../models/Models';
+
+
 
 const login = ({ navigation }) => {
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('email');
+    const res = await JSON.parse(jsonValue);
+    if (jsonValue == null) {
+      return null;
+    } else {
+      const response = await Models.login(res);
+      console.log(response);
+      if (res.code != '200') {
+        alert(`${res.message}`);
+        return true;
+      }
+      else
+      return navigation.navigate('App');
+    }
+  } catch (e) {}
+};
+const storeData = async value => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('email', jsonValue);
+  } catch (e) {}
+};
+getData();
+const loginReq = async () => {
+  const dat = {email: email, password: password};
+  if (email === '' || password === '') {
+    return alert('Data harus diisi !!!');
+  }
+
+  const res = await Models.login(dat);
+  if (res.code != '200') {
+    alert(`${res.message}`);
+    return true;
+  } else {
+    const dataLokal = {
+      email: email,
+      password: password,
+      id: res.id_User,
+    };
+    storeData(dataLokal);
+    return navigation.navigate('App');
+  }
+};
+
   return (
     <NativeBaseProvider >
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="center">
@@ -39,7 +92,10 @@ const login = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
+            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+            onChangeText={setEmail}
+            value={email}
+            />
           </FormControl>
           <FormControl.Label
             _text={{
@@ -49,10 +105,13 @@ const login = ({ navigation }) => {
             }}>
           </FormControl.Label>
           <FormControl>
-            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
+            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" 
+            onChangeText={setPassword}
+            value={password}
+            />
           </FormControl>
           <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'
-            onPress={() => navigation.navigate('App')}>
+            onPress={()=>loginReq}>
             Masuk
           </Button>
           <HStack mt="6"
