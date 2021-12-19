@@ -7,7 +7,7 @@ const splash = ({ navigation }) => {
 
   useEffect(() => {
     setTimeout(async () => {
-      const jsonValue = await AsyncStorage.getItem('email');
+      const jsonValue = await AsyncStorage.getItem('token');
       const res = await JSON.parse(jsonValue);
       const response = await Models.login(res);
       console.log(response);

@@ -22,6 +22,8 @@ import Member from '../assets/member.svg'
 import Topup from '../assets/topup.svg'
 import Cart from '../assets/cart.svg'
 import Bell from '../assets/bell.svg'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Models from '../models/Models';
 
 
 const main = ({ navigation }) => {
@@ -42,6 +44,17 @@ const main = ({ navigation }) => {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', backAction);
   }, []);
+  
+  useEffect(() => {
+    console.log("test");
+    const res = Models.getProfil();
+      if (res.code != '200') {
+        alert(`${res}`);
+      } else {
+        console.log(res, 'test prof');
+      }
+  }, [])
+ 
 
   return (
     <View style={{ flex: 1, backgroundColor: '#253334' }}>
