@@ -68,20 +68,19 @@ const kalkulatorbb = ({ navigation }) => {
               value={beratBadan} />
           </FormControl>
           <Box size='sm' backgroundColor='white' h='70' w='120' borderRadius='20' alignSelf='center' mt='15%' />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Tabel")}>
             <Text mt='5' color='white' alignSelf='center' fontSize='18' borderBottomColor='white' borderBottomWidth="1">
               Lihat Tabel IMT
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Hasil")} >
-            <Button mt='20%' bgColor='#CBF3E8' borderRadius='10' w='284' h='71'
-              _text={{
-                color: "black",
-                fontSize: 20
-              }}>
-              Hitung
-            </Button>
-          </TouchableOpacity>
+          <Button mt='20%' bgColor='#CBF3E8' borderRadius='10' w='284' h='71'
+            _text={{
+              color: "black",
+              fontSize: 20
+            }}
+            onPress={() => navigation.navigate("Hasil")}>
+            Hitung
+          </Button>
         </Box>
       </Box>
     </NativeBaseProvider>

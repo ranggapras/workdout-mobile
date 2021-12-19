@@ -130,15 +130,14 @@ const kalkulatorkalori = ({ navigation }) => {
             </View>
           </FormControl>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Hasil")} >
-            <Button ml='4' mt='5' bgColor='#CBF3E8' borderRadius='10' w='284' h='71'
-              _text={{
-                color: "black",
-                fontSize: 20
-              }}>
-              Hitung
-            </Button>
-          </TouchableOpacity>
+          <Button ml='4' mt='5' bgColor='#CBF3E8' borderRadius='10' w='284' h='71'
+            _text={{
+              color: "black",
+              fontSize: 20
+            }}
+            onPress={() => navigation.navigate("Hasil")}>
+            Hitung
+          </Button>
         </Box>
       </Box>
     </NativeBaseProvider>

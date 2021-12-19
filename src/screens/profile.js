@@ -16,11 +16,18 @@ import {
 } from 'native-base';
 
 import React from 'react'
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, BackHandler } from 'react-native';
 import { fontSize } from 'styled-system';
 import ProfilePicture from '../assets/profil.png'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const profile = ({ navigation }) => {
+
+  const press = () => {
+    BackHandler.exitApp()
+    AsyncStorage.removeItem('token')
+  }
+
   return (
     <NativeBaseProvider >
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
@@ -36,7 +43,7 @@ const profile = ({ navigation }) => {
           <Text pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' >Jl. Jalan Hayuk no.69</Text>
           <Box w='100%' flexDirection='row' justifyContent='flex-end'>
             <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white', fontSize: 18 }} w='160' h='39' borderRadius='10'
-              onPress={() => navigation.navigate("Login")}>
+              onPress={press}>
               Keluar
             </Button>
           </Box>

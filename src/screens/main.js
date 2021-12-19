@@ -45,15 +45,15 @@ const main = ({ navigation }) => {
     BackHandler.addEventListener('hardwareBackPress', backAction);
   }, []);
   
-  useEffect(() => {
-    console.log("test");
-    const res = Models.getProfil();
-      if (res.code != '200') {
-        alert(`${res}`);
-      } else {
-        console.log(res, 'test prof');
-      }
-  }, [])
+  // useEffect(() => {
+  //   console.log("test");
+  //   const res = Models.getProfil();
+  //     if (res.code != 200) {
+  //       alert(`${res}`);
+  //     } else {
+  //       console.log(res, 'test prof');
+  //     }
+  // }, [])
  
 
   return (
