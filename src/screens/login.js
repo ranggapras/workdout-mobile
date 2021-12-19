@@ -20,7 +20,7 @@ import { fontSize } from 'styled-system';
 import Logo from '../assets/logoworkdout.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../models/Models';
-
+import {decode as atob, encode as btoa} from 'base-64'
 
 
 const login = ({ navigation }) => {
@@ -29,7 +29,7 @@ const [password, setPassword] = useState('')
 
 const getData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem('email');
+    const jsonValue = await AsyncStorage.getItem('token');
     const res = await JSON.parse(jsonValue);
     if (jsonValue == null) {
       return null;
@@ -48,7 +48,13 @@ const getData = async () => {
 const storeData = async value => {
   try {
     const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('email', jsonValue);
+    await AsyncStorage.setItem('user', jsonValue);
+  } catch (e) {}
+};
+const storeToken = async value => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('token', jsonValue);
   } catch (e) {}
 };
 getData();
@@ -64,11 +70,11 @@ const loginReq = async () => {
     return true;
   } else {
     const dataLokal = {
-      email: email,
-      password: password,
-      id: res.id_User,
+      token : res.accessToken
     };
-    storeData(dataLokal);
+    const userData = JSON.parse(atob(res.accessToken.split('.')[1]))
+    storeToken(dataLokal);
+    storeData(userData);
     return navigation.navigate('App');
   }
 };
