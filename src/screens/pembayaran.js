@@ -5,11 +5,16 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 const pembayaran = () => {
     const [bayarDitempat, setBayarDitempat] = useState(false);
-    const [midtrans, setMidtrans] = useState(false);
+    const [wopay, setWopay] = useState(false);
 
-    const press = () => {
-        setBayarDitempat(!bayarDitempat)
-        setMidtrans(!midtrans)
+    const pressBayar = () => {
+        setBayarDitempat(true)
+        setWopay(false)
+    }
+
+    const pressWopay = () => {
+        setWopay(true)
+        setBayarDitempat(false)
     }
 
     return (
@@ -28,7 +33,7 @@ const pembayaran = () => {
                             marginLeft: 10
                         }}>Bayar Di Tempat Gym</Text>
                     </View>
-                    <TouchableOpacity onPress={press}>
+                    <TouchableOpacity onPress={pressBayar}>
                         <View style={{
                             width: 25,
                             height: 25,
@@ -49,16 +54,22 @@ const pembayaran = () => {
                             color: '#fff',
                             fontWeight: '700',
                             fontSize: 18,
-                            marginLeft: 10
-                        }}>MidTrans</Text>
+                            marginLeft: 10,
+                        }}>WOpay</Text>
+                        <Text style={{
+                            color: '#fff',
+                            fontWeight: '500',
+                            fontSize: 17,
+                            marginLeft: 20
+                        }}>Rp. 500.000</Text>
                     </View>
-                    <TouchableOpacity onPress={press}>
+                    <TouchableOpacity onPress={pressWopay}>
                         <View style={{
                             width: 25,
                             height: 25,
                             borderRadius: 50,
-                            backgroundColor: midtrans ? '#58B4A7' : '#253334',
-                            borderWidth: midtrans ? 0 : 2,
+                            backgroundColor: wopay ? '#58B4A7' : '#253334',
+                            borderWidth: wopay ? 0 : 2,
                             borderColor: '#58B4A7'
                         }}></View>
                     </TouchableOpacity>

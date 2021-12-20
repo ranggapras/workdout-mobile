@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, Image } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer, Tabel } from '../screens';
+import { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer, Tabel, Notification } from '../screens';
 import Back from '../assets/back-dark.svg'
 import BackLight from '../assets/back.svg'
 import Cart from '../assets/cartb.svg'
@@ -54,7 +54,7 @@ const App = () => {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                 <BellWhite />
                 <Badge
                   status="error"
@@ -121,7 +121,7 @@ const App = () => {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                 <Bell />
                 <Badge
                   status="error"
@@ -258,7 +258,7 @@ const Router = () => {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                 <Bell />
                 <Badge
                   status="error"
@@ -331,7 +331,7 @@ const Router = () => {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                 <Bell />
                 <Badge
                   status="error"
@@ -404,7 +404,7 @@ const Router = () => {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                 <Bell />
                 <Badge
                   status="error"
@@ -638,7 +638,7 @@ const Router = () => {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                 <Bell />
                 <Badge
                   status="error"
@@ -711,6 +711,64 @@ const Router = () => {
         },
         headerTitleAlign: 'left',
         headerBackVisible: false
+      })} />
+      <Stack.Screen name="Notification" component={Notification} options={({ navigation, route }) => ({
+        headerStyle: {
+          backgroundColor: '#87ADA3',
+          height: 70
+        },
+        headerBackVisible: false,
+        headerTitle: () => {
+          return (
+            <View>
+              <Text style={{ fontSize: 25, color: '#252525', fontWeight: '700' }}>NOTIFIKASI</Text>
+            </View>
+          )
+        },
+        headerTitleAlign: 'center',
+        headerRight: () => {
+          return (
+            <View style={{ width: 80, flexDirection: 'row', justifyContent: 'space-between', marginRight: 0 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('Keranjang')}>
+                <Cart />
+                <Badge
+                  status="error"
+                  value={5}
+                  containerStyle={{ position: 'absolute', top: -8, right: -5, zIndex: 2 }}
+                  textStyle={{
+                    color: '#000',
+                    fontWeight: '800'
+                  }}
+                  badgeStyle={{
+                    backgroundColor: '#CBF3E8',
+                  }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+                <Bell />
+                <Badge
+                  status="error"
+                  value={5}
+                  containerStyle={{ position: 'absolute', top: -8, right: -5, zIndex: 2 }}
+                  textStyle={{
+                    color: '#000',
+                    fontWeight: '800'
+                  }}
+                  badgeStyle={{
+                    backgroundColor: '#CBF3E8',
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          )
+        },
+        headerLeft: () => {
+          return (
+            <TouchableOpacity style={{ marginRight: 10 }} onPress={() => navigation.goBack()}>
+              <Back />
+            </TouchableOpacity>
+          )
+        },
       })} />
       <Stack.Screen name="App" component={App} options={{ headerShown: false }} />
     </Stack.Navigator>
