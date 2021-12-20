@@ -96,7 +96,7 @@ const Models = {
     },
     async getActivity(){
         const token = await AsyncStorage.getItem('token')
-        const fetchItem = await fetch(`http://47.241.214.211:3000/api/activity`,{
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/activities`,{
             method:'GET',
             headers:{
                 'content-type':'application/json',
@@ -190,9 +190,21 @@ const Models = {
         const res = await fetchItem.json();
         return res;
     },
-    async getNotification(idMembership){
+    async getNotification(){
         const token = await AsyncStorage.getItem('token')
         const fetchItem = await fetch(`http://47.241.214.211:3000/api/notification`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getProduct(){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/products`,{
             method:'GET',
             headers:{
                 'content-type':'application/json',
