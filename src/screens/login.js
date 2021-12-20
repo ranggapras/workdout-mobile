@@ -15,69 +15,73 @@ import {
   Image
 } from 'native-base';
 
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { fontSize } from 'styled-system';
 import Logo from '../assets/logoworkdout.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../models/Models';
-import {decode as atob, encode as btoa} from 'base-64'
+import { decode as atob, encode as btoa } from 'base-64'
 
 
 const login = ({ navigation }) => {
-const [email, setEmail] = useState('')
-const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-const getData = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem('token');
-    const res = await JSON.parse(jsonValue);
-    if (jsonValue == null) {
-      return null;
-    } else {
-      const response = await Models.login(res);
-      console.log(response);
-      if (res.code != '200') {
-        alert(`${res.message}`);
-        return true;
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('token');
+      const res = await JSON.parse(jsonValue);
+      if (jsonValue == null) {
+        return null;
+      } else {
+        const response = await Models.login(res);
+        console.log(response);
+        if (res.code != '200') {
+          alert(`${res.message}`);
+          return true;
+        }
+        else
+          return navigation.navigate('App');
       }
-      else
+    } catch (e) { }
+  };
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('user', jsonValue);
+    } catch (e) { }
+  };
+
+  const storeToken = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('token', jsonValue);
+    } catch (e) { }
+  };
+
+  getData();
+
+  const loginReq = async () => {
+    const dat = { email: email, password: password };
+    if (email === '' || password === '') {
+      return alert('Data harus diisi !!!');
+    }
+
+    const res = await Models.login(dat);
+    if (res.code != '200') {
+      alert(`${res.message}`);
+      return true;
+    } else {
+      const dataLokal = {
+        token: res.accessToken
+      };
+      const userData = JSON.parse(atob(res.accessToken.split('.')[1]))
+      storeToken(dataLokal);
+      storeData(userData);
       return navigation.navigate('App');
     }
-  } catch (e) {}
-};
-const storeData = async value => {
-  try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('user', jsonValue);
-  } catch (e) {}
-};
-const storeToken = async value => {
-  try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('token', jsonValue);
-  } catch (e) {}
-};
-getData();
-const loginReq = async () => {
-  const dat = {email: email, password: password};
-  if (email === '' || password === '') {
-    return alert('Data harus diisi !!!');
-  }
-
-  const res = await Models.login(dat);
-  if (res.code != '200') {
-    alert(`${res.message}`);
-    return true;
-  } else {
-    const dataLokal = {
-      token : res.accessToken
-    };
-    const userData = JSON.parse(atob(res.accessToken.split('.')[1]))
-    storeToken(dataLokal);
-    storeData(userData);
-    return navigation.navigate('App');
-  }
-};
+  };
 
   return (
     <NativeBaseProvider >
@@ -99,8 +103,8 @@ const loginReq = async () => {
               }}>
             </FormControl.Label>
             <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
-            onChangeText={setEmail}
-            value={email}
+              onChangeText={setEmail}
+              value={email}
             />
           </FormControl>
           <FormControl.Label
@@ -111,9 +115,9 @@ const loginReq = async () => {
             }}>
           </FormControl.Label>
           <FormControl>
-            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" 
-            onChangeText={setPassword}
-            value={password}
+            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+              onChangeText={setPassword}
+              value={password}
             />
           </FormControl>
           <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'
