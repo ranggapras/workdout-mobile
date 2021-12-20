@@ -34,10 +34,14 @@ const Main = ({ navigation }) => {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', backAction);
   }, []);
-  
-  useEffect( async() => {
+
+  useEffect(async () => {
     const getProfil = async () => {
       const res = await Models.getProfil();
+      const name = await res.data.nameUser
+      const saldo = await res.data.saldo
+      setUsername(name);
+      setSaldo(saldo);
       console.log(res);
       if (res.code != '200') {
         // alert(`${res}`);
