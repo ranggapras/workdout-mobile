@@ -25,6 +25,8 @@ import Bell from '../assets/bell.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Models from '../models/Models';
 
+const [dataUser, setdataUser] = useState(null)
+
 
 const main = ({ navigation }) => {
   const [username, setUsername] = useState('')
@@ -59,7 +61,8 @@ const main = ({ navigation }) => {
       if (res.code != '200') {
         // alert(`${res}`);
       } else {
-        console.log(res, 'test prof');
+       setdataUser(res)
+       console.log(res);
       }
     }
     getProfil()
