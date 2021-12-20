@@ -39,7 +39,7 @@ const kalkulator = ({ navigation }) => {
                     <TouchableOpacity onPress={() => navigation.navigate("Kalkulatorkalori")}>
                         <Box mt="50" h='71' w='284' bgColor="#CBF3E8" justifyContent='center' borderRadius="30">
                             <Text color='black' fontWeight='bold' textAlign='center' fontSize="16">
-                                KALKULATOR HARIAN
+                                KALORI HARIAN
                             </Text>
                         </Box>
                     </TouchableOpacity>

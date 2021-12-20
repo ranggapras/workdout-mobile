@@ -45,14 +45,17 @@ const main = ({ navigation }) => {
     BackHandler.addEventListener('hardwareBackPress', backAction);
   }, []);
   
-  useEffect(() => {
-    console.log("test");
-    const res = Models.getProfil();
+  useEffect( async() => {
+    const getProfil = async () => {
+      const res = await Models.getProfil();
+      console.log(res);
       if (res.code != '200') {
-        alert(`${res}`);
+        // alert(`${res}`);
       } else {
         console.log(res, 'test prof');
       }
+    }
+    getProfil()
   }, [])
  
 
