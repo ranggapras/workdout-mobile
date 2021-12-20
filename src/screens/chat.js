@@ -1,31 +1,85 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { View, TextInput, ScrollView, StyleSheet, Text, Keyboard, TouchableOpacity } from 'react-native'
 import Send from '../assets/send.svg'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp, listenOrientationChange } from 'react-native-responsive-screen';
+import database from '@react-native-firebase/database';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
 
-const chat = ({ navigation }) => {
+const Chat = ({ navigation }) => {
+const [chat, setChat] = useState([]);
+const [userid, setuserid] = useState(null)
+const [form, setform] = useState(null)
+
+    useEffect(() => {
+    getData()    
+    }, [])
+    const getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('user');
+            database().ref(`${JSON.parse(value).id}`).on('value', snapshot => {
+                console.log(' chat Data => ',snapshot.val())
+              let chats = [];
+              snapshot.forEach((snap) => {
+                chats.push(snap.val());
+                console.log(snap.val());
+              });
+              setChat(chats);
+            });
+            setuserid(JSON.parse(value).id)
+          } catch (error) {
+            setChat({ readError: error.message });
+          }
+    }
+
+    const sendData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('user');
+            await database().ref(`${JSON.parse(value).id}`).push({
+              message: form,
+              timestamp: Date.now(),
+              id: JSON.parse(value).id
+            });
+           setform(null)
+          } catch (error) {
+            
+          }
+        };
+    
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollView>
-                <View style={styles.chatUser}>
+            {chat.length>0 && chat.map((d, idx)=> {
+                        console.log(d);
+                        if (d.id === userid ) {
+                            return (
+                    <View key={idx} style={styles.chatUser}>
                     <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                        <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
-                        <Text style={{ color: '#fff' }}>12:05</Text>
+                        <Text style={{ color: '#fff', marginRight: 30 }}>{moment(d.timestamp).format('DD-MM-YYYY')}</Text>
+                        <Text style={{ color: '#fff' }}>{moment(d.timestamp).format('hh:mm')}</Text>
                     </View>
                     <View style={styles.bubbleUser}>
-                        <Text style={{ color: '#000', fontSize: 17 }}>Untuk harganya berapa ya min?</Text>
+                        <Text style={{ color: '#000', fontSize: 17 }}>{`${d.message}`}</Text>
                     </View>
                 </View>
-                <View style={styles.chatReply}>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
-                        <Text style={{ color: '#fff' }}>12:05</Text>
-                    </View>
-                    <View style={styles.bubbleReply}>
-                        <Text style={{ color: '#000', fontSize: 17 }}>Tergantung dari jumlah pemilihan latihan</Text>
-                    </View>
-                </View>
-                <View style={styles.chatReply}>
+                            )
+                        }
+                        return(
+                            <View key={idx} style={styles.chatReply}>
+                            <View style={{ flexDirection: 'row', marginLeft: 10 }}>
+                                <Text style={{ color: '#fff', marginRight: 30 }}>{moment(d.timestamp).format('DD-MM-YYYY')}</Text>
+                                <Text style={{ color: '#fff' }}>{moment(d.timestamp).format('hh:mm')}</Text>
+                            </View>
+                            <View style={styles.bubbleReply}>
+                                <Text style={{ color: '#000', fontSize: 17 }}>{`${d.message}`}</Text>
+                            </View>
+                        </View>
+                        )
+                    })}
+                
+                
+                {/* <View style={styles.chatReply}>
                     <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                         <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
                         <Text style={{ color: '#fff' }}>12:05</Text>
@@ -60,14 +114,14 @@ const chat = ({ navigation }) => {
                     <View style={styles.bubbleReply}>
                         <Text style={{ color: '#000', fontSize: 17 }}>dahla</Text>
                     </View>
-                </View>
+                </View> */}
             </ScrollView>
             <View style={styles.containerTyping}>
                 <TextInput
                     style={styles.Typing}
-                    // onChangeText={(UserEmail) =>
-                    //   setUserEmail(UserEmail)
-                    // }
+                    onChangeText={(value) =>
+                      setform(value)
+                    }
                     placeholder="Ketik"
                     placeholderTextColor="#000"
                     autoCapitalize="sentences"
@@ -77,7 +131,7 @@ const chat = ({ navigation }) => {
                     underlineColorAndroid="#f000"
                     blurOnSubmit={false}
                 />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => sendData()}>
                     <Send />
                 </TouchableOpacity>
             </View>
@@ -85,7 +139,7 @@ const chat = ({ navigation }) => {
     )
 }
 
-export default chat
+export default Chat
 
 const styles = StyleSheet.create({
     chatUser: {

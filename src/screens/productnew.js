@@ -1,9 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import CardItem from '../components/CardItem'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
 
 const productnew = ({ navigation }) => {
+    const [product, setproduct] = useState([])
+
+    useEffect(async () => {
+        const getProduct = async () => {
+          const res = await Models.getProduct();
+          console.log(res);
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+            setproduct(res.data)
+           console.log('asd ',res);
+          }
+        }
+        getProduct()
+      }, [])
+
     const [filter, setFilter] = useState('');
 
     return (
@@ -57,20 +74,12 @@ const productnew = ({ navigation }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ paddingBottom: 60 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%'), marginBottom: 25 }}>
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%'), marginBottom: 25 }}>
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%'), marginBottom: 25 }}>
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%'), marginBottom: 25 }}>
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
-                            <CardItem navigation={() => navigation.navigate('DetailProduk')} />
+                        {product.length>0 && product.map((d, idx)=> {
+                        console.log(d);
+                        return(
+                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk')}/>
+                        )
+                    })}
                         </View>
                     </View>
                 </ScrollView>

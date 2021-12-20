@@ -6,7 +6,7 @@ import Done from '../assets/done.png'
 import Clear from '../assets/clear.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const cart = ({ navigation }) => {
+const Cart = ({ navigation }) => {
     const [check, setCheck] = useState(false);
 
     return (
@@ -52,7 +52,7 @@ const cart = ({ navigation }) => {
     )
 }
 
-export default cart
+export default Cart
 
 const styles = StyleSheet.create({
     ContainerVoucher: {

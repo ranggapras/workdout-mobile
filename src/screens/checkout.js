@@ -6,7 +6,7 @@ import Mp from '../assets/mp.svg'
 import Kirim from '../assets/buttonPengiriman.svg'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const checkout = ({ route, navigation }) => {
+const Checkout = ({ route, navigation }) => {
     const { broadcast } = route.params;
 
     console.log(broadcast);
@@ -214,7 +214,7 @@ const checkout = ({ route, navigation }) => {
     )
 }
 
-export default checkout
+export default Checkout
 
 const styles = StyleSheet.create({
     containerCart: {

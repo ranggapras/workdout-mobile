@@ -1,14 +1,20 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { height } from 'styled-system';
 import Gambar from '../assets/Produk.png'
 
-const CardItem = ({ navigation }) => {
+const thousand = val => (
+    val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  );
+  
+
+const CardItem = ({ navigation,data }) => {
     return (
         <TouchableOpacity onPress={navigation}>
             <View style={styles.card}>
-                <Image source={Gambar} style={styles.gambar} />
-                <Text style={styles.namaProduk}>Matras Yoga Anti Slip</Text>
-                <Text style={styles.hargaProduk}>Rp. 55.000</Text>
+                <Image source={{uri:data.photo}} style={styles.gambar} />
+                <Text style={styles.namaProduk}>{data.name}</Text>
+                <Text style={styles.hargaProduk}>Rp{thousand(data.price)}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -26,7 +32,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     gambar: {
-        width: 150
+        width: 150,
+        height : 150
     },
     namaProduk: {
         fontWeight: 'bold',

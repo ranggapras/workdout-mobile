@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import Gambar from '../assets/Produk.png'
 import CardItem from '../components/CardItem'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
+
 
 const product = ({ navigation }) => {
+
+const [product, setproduct] = useState([])
+
+    useEffect(async () => {
+        const getProduct = async () => {
+          const res = await Models.getProduct();
+          console.log(res);
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+            setproduct(res.data)
+           console.log('asd ',res);
+          }
+        }
+        getProduct()
+      }, [])
+
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <View>
@@ -15,8 +34,12 @@ const product = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%') }}>
-                    <CardItem navigation={() => navigation.navigate('DetailProduk')}/>
-                    <CardItem navigation={() => navigation.navigate('DetailProduk')}/>
+                    {product.length>0 && product.map((d, idx)=> {
+                        console.log(d);
+                        return(
+                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk')}/>
+                        )
+                    })}
                 </View>
             </View>
             <View style={{ marginTop: 30 }}>
@@ -27,8 +50,12 @@ const product = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%') }}>
-                    <CardItem navigation={() => navigation.navigate('DetailProduk')}/>
-                    <CardItem navigation={() => navigation.navigate('DetailProduk')}/>
+                 {product.length>0 && product.map((d, idx)=> {
+                        console.log(d);
+                        return(
+                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk')}/>
+                        )
+                    })}
                 </View>
             </View>
         </View>
