@@ -1,34 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { TouchableOpacity, View, Text, BackHandler, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {
   NativeBaseProvider,
   Box,
   Heading,
-  VStack,
-  FormControl,
-  Input,
-  Link,
-  Button,
-  HStack,
-  Divider,
   Image
 } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Calendar from '../assets/calendar.svg';
 import Calculator from '../assets/calculator.svg'
 import Member from '../assets/member.svg'
 import Topup from '../assets/topup.svg'
-import Cart from '../assets/cart.svg'
-import Bell from '../assets/bell.svg'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import Models from '../models/Models';
 
-const [dataUser, setdataUser] = useState(null)
 
 
-const main = ({ navigation }) => {
+
+const Main = ({ navigation }) => {
+  const [dataUser, setdataUser] = useState(null)
   const backAction = () => {
     if (navigation.isFocused()) {
       Alert.alert('Keluar', 'Apakah anda yakin akan keluar dari aplikasi?', [
@@ -60,14 +48,13 @@ const main = ({ navigation }) => {
     }
     getProfil()
   }, [])
- 
 
   return (
     <View style={{ flex: 1, backgroundColor: '#253334' }}>
       <NativeBaseProvider >
         <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" >
           <Heading size="lg" fontWeight="600" color="#FFFFFF" mt="0" marginX="15">
-            Halo Eka
+            {`Halo ${dataUser === null ? '' : dataUser.data.nameUser}`}
           </Heading>
           <Heading mt="1" color="#BEC2C2" fontWeight="medium" size="md" mt="5" marginX="15" marginBottom="35" >
             Siap untuk olahraga hari ini?
@@ -75,7 +62,7 @@ const main = ({ navigation }) => {
           <Box flexDirection="row" justifyContent="space-between" w='80%' alignSelf='center'>
             <Box flex={1} flexDirection="column" w="160" h="50" pt="0.5" pl="5" borderRadius="120" backgroundColor="#CBF3E8">
               <Text style={{ color: "#3A5051", fontSize: 14 }}>Saldo:</Text>
-              <Text style={{ color: "black", fontSize: 18, fontWeight: "bold" }}>Rp4.000.000</Text>
+              <Text style={{ color: "black", fontSize: 18, fontWeight: "bold" }}>Rp{`${dataUser === null ? '' : dataUser.data.saldo}`}</Text>
             </Box>
             <Box flex={1} flexDirection='row' w="160" h="50" borderRadius="120" ml="-60" justifyContent='center' alignItems='center' backgroundColor="#58B4A7">
               <Topup />
@@ -122,4 +109,4 @@ const main = ({ navigation }) => {
   )
 }
 
-export default main
+export default Main
