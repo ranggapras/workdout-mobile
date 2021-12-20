@@ -12,7 +12,9 @@ import Member from '../assets/member.svg'
 import Topup from '../assets/topup.svg'
 import Models from '../models/Models';
 
-
+const thousand = val => (
+  val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+);
 
 
 const Main = ({ navigation }) => {
@@ -38,10 +40,6 @@ const Main = ({ navigation }) => {
   useEffect(async () => {
     const getProfil = async () => {
       const res = await Models.getProfil();
-      const name = await res.data.nameUser
-      const saldo = await res.data.saldo
-      setUsername(name);
-      setSaldo(saldo);
       console.log(res);
       if (res.code != '200') {
         // alert(`${res}`);
@@ -66,7 +64,7 @@ const Main = ({ navigation }) => {
           <Box flexDirection="row" justifyContent="space-between" w='80%' alignSelf='center'>
             <Box flex={1} flexDirection="column" w="160" h="50" pt="0.5" pl="5" borderRadius="120" backgroundColor="#CBF3E8">
               <Text style={{ color: "#3A5051", fontSize: 14 }}>Saldo:</Text>
-              <Text style={{ color: "black", fontSize: 18, fontWeight: "bold" }}>Rp{`${dataUser === null ? '' : dataUser.data.saldo}`}</Text>
+              <Text style={{ color: "black", fontSize: 18, fontWeight: "bold" }}>Rp{`${dataUser === null ? '' : thousand(dataUser.data.saldo)}`}</Text>
             </Box>
             <Box flex={1} flexDirection='row' w="160" h="50" borderRadius="120" ml="-60" justifyContent='center' alignItems='center' backgroundColor="#58B4A7">
               <Topup />
