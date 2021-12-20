@@ -26,5 +26,6 @@ import DetailWorkout from "./detailworkout"
 import Terdaftar from "./terdaftarmember"
 import PersonalTrainer from "./personaltrainer"
 import Tabel from "./tabelimt"
+import Notification from "./notification"
 
-export { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer, Tabel }
+export { Chat, EditProfile, Hasil, Kalkulator, KalkulatorBB, KalkulatorKalori, Login, Main, Onboard, Product, Profile, Register, Splash, ProductNew, ProductPopular, DetailProduct, Keranjang, Checkout, OpsiKirim, Voucher, Pembayaran, PesananSelesai, JadwalWorkout, Membership, DetailWorkout, Terdaftar, PersonalTrainer, Tabel, Notification }

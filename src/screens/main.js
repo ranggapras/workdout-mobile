@@ -73,7 +73,7 @@ const main = ({ navigation }) => {
             </Box>
             <Box flex={1} flexDirection='row' w="160" h="50" borderRadius="120" ml="-60" justifyContent='center' alignItems='center' backgroundColor="#58B4A7">
               <Topup />
-              <Text style={{ color: "white", fontSize: 22, marginLeft: 5 }}>Top-up</Text>
+              <Text style={{ color: "white", fontSize: 22, marginLeft: 10 }}>Isi Ulang</Text>
             </Box>
           </Box>
           <View style={{ flex: 1, flexDirection: "row", marginTop: 40, justifyContent: 'space-between' }}>
