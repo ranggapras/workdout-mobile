@@ -1,25 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import CartItem from '../components/CartItem';
 import Voucher from '../assets/Voucher.png'
 import Done from '../assets/done.png'
 import Clear from '../assets/clear.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
 
 const Cart = ({ navigation }) => {
+    const [cart, setcart] = useState([])
     const [check, setCheck] = useState(false);
-
+    useEffect(async () => {
+        const getCart = async () => {
+          const res = await Models.getCart();
+          console.log(res);
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+            setcart(res.data)
+           console.log('asd ',res);
+          }
+        }
+        getCart()
+      }, [])
     return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <ScrollView>
+            {cart.length>0 && cart.map((d, idx)=> {
+                        console.log(d);
+                        return(
+                        <CartItem key={idx} data={d} />
+                        )
+                    })}
+                {/* <CartItem />
                 <CartItem />
                 <CartItem />
                 <CartItem />
                 <CartItem />
                 <CartItem />
                 <CartItem />
-                <CartItem />
-                <CartItem />
+                <CartItem /> */}
             </ScrollView>
             <View style={styles.ContainerVoucher}>
                 <View style={{

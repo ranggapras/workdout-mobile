@@ -6,11 +6,13 @@ import Gambar from '../assets/Produk.png'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const CartItem = () => {
+const CartItem = ({data}) => {
     const [click, setClick] = useState(1);
     const [stock, setStock] = useState(5);
     const [check, setCheck] = useState(false);
-
+    const thousand = val => (
+        val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+      );
     const PressedPlus = () => {
         if (stock <= 0) {
             return;
@@ -34,10 +36,10 @@ const CartItem = () => {
             <TouchableOpacity onPress={() => setCheck(!check)}>
                 <Image source={check ? Done : Clear} />
             </TouchableOpacity>
-            <Image source={Gambar} style={{ width: 80, height: 80 }} />
+            <Image source={{uri:data.photo}} style={{ width: 80, height: 80 }} />
             <View style={{ flexDirection: 'column', height: 110, justifyContent: 'space-between' }}>
-                <Text style={styles.Judul}>Matras Anti Slip</Text>
-                <Text style={styles.Harga}>Rp 55.000</Text>
+                <Text style={styles.Judul}>{data.description}</Text>
+                <Text style={styles.Harga}>Rp{thousand(data.price)}</Text>
                 <View style={{ flexDirection: 'row', width: 230, alignItems: 'center', justifyContent: 'space-between' }}>
                     <View style={styles.ContainerButtonCart}>
                         <FontAwesome5

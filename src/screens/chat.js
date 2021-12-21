@@ -92,6 +92,7 @@ const [form, setform] = useState(null)
                     onSubmitEditing={Keyboard.dismiss}
                     underlineColorAndroid="#f000"
                     blurOnSubmit={false}
+                    value={form}
                 />
                 <TouchableOpacity onPress={() => sendData()}>
                     <Send />
