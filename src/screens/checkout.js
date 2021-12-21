@@ -8,8 +8,9 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Models from '../models/Models';
 
 const Checkout = ({ route, navigation }) => {
-
-    const [cartmember, setcartmember] = useState([])
+    const { broadcast, id } = route.params;
+    const [product, setproduct] = useState([])
+    const [member, setmember] = useState([])
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
       );
@@ -24,18 +25,10 @@ const Checkout = ({ route, navigation }) => {
            console.log(res);
           }
         }
-        getMembershipProduct()
+        getMembershipProductById()
       }, [])
 
-    const { broadcast } = route.params;
-
-
-const Checkout = ({ route, navigation }) => {
-    const { broadcast, id } = route.params;
-    const [product, setproduct] = useState([])
-
-    console.log(product);
-
+    
     useEffect(async () => {
         const getProductById = async () => {
             const res = await Models.getProductById(id);
@@ -280,7 +273,7 @@ const Checkout = ({ route, navigation }) => {
     )
 }
 
-export default Checkout
+
 
 const styles = StyleSheet.create({
     containerCart: {
@@ -395,4 +388,5 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '700'
     }
-})}
+})
+export default Checkout
