@@ -3,8 +3,30 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import Logo from '../assets/logoworkdout.png'
 import JadwalItem from '../components/JadwalItem'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
+import { useEffect, useState } from 'react'
+
+const thousand = val => (
+    val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  );
 
 const jadwalworkout = ({ navigation }) => {
+const [workout, setworkout] = useState([])
+
+    useEffect(async () => {
+        const getWorkout = async () => {
+          const res = await Models.getWorkout();
+          console.log(res);
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+           setworkout(res.data)
+           console.log(res);
+          }
+        }
+        getWorkout()
+      }, [])
+
     return (
         <View style={{ flex: 1, paddingHorizontal: 20 }}>
             <Image source={Logo} style={{ width: 61.78, height: 50, marginTop: 20 }} />
@@ -22,46 +44,18 @@ const jadwalworkout = ({ navigation }) => {
                     width: wp('90%'),
                     alignSelf: 'center'
                 }}>
-                    <JadwalItem
-                        tanggal={'1 - 6'}
-                        bulan={'November'}
-                        tahun={'2021'}
-                        harga={'40.000'}
-                        navigation={() => navigation.navigate('DetailWorkout', {
-                            information: '',
-                        })} />
-                    <JadwalItem
-                        tanggal={'8 - 13'}
-                        bulan={'November'}
-                        tahun={'2021'}
-                        harga={'70.000'}
-                        navigation={() => navigation.navigate('DetailWorkout', {
-                            information: '',
-                        })} />
-                    <JadwalItem
-                        tanggal={'15 - 21'}
-                        bulan={'November'}
-                        tahun={'2021'}
-                        harga={'40.000'}
-                        navigation={() => navigation.navigate('DetailWorkout', {
-                            information: '',
-                        })} />
-                    <JadwalItem
-                        tanggal={'22 - 28'}
-                        bulan={'November'}
-                        tahun={'2021'}
-                        harga={'40.000'}
-                        navigation={() => navigation.navigate('DetailWorkout', {
-                            information: '',
-                        })} />
-                    <JadwalItem
-                        tanggal={'1 - 5'}
-                        bulan={'Desember'}
-                        tahun={'2021'}
-                        harga={'50.000'}
-                        navigation={() => navigation.navigate('DetailWorkout', {
-                            information: '',
-                        })} />
+                      {workout.length>0 && workout.map((d, idx)=> {
+                        console.log(d);
+                        return(
+                            <JadwalItem key={idx}
+                            tanggal={d.name}
+                            harga={thousand(d.price ||  '0')}
+                            navigation={() => navigation.navigate('DetailWorkout', {
+                                information: '',
+                            })} />
+                        )
+                    })}
+                    
                 </View>
             </ScrollView>
         </View>

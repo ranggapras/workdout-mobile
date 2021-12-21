@@ -77,44 +77,6 @@ const [form, setform] = useState(null)
                         </View>
                         )
                     })}
-                
-                
-                {/* <View style={styles.chatReply}>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
-                        <Text style={{ color: '#fff' }}>12:05</Text>
-                    </View>
-                    <View style={styles.bubbleReply}>
-                        <Text style={{ color: '#000', fontSize: 17 }}>Tergantung dari jumlah pemilihan latihan</Text>
-                    </View>
-                </View>
-                <View style={styles.chatReply}>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
-                        <Text style={{ color: '#fff' }}>12:05</Text>
-                    </View>
-                    <View style={styles.bubbleReply}>
-                        <Text style={{ color: '#000', fontSize: 17 }}>Tergantung dari jumlah pemilihan latihan</Text>
-                    </View>
-                </View>
-                <View style={styles.chatUser}>
-                    <View style={{ flexDirection: 'row', marginRight: 10 }}>
-                        <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
-                        <Text style={{ color: '#fff' }}>12:05</Text>
-                    </View>
-                    <View style={styles.bubbleUser}>
-                        <Text style={{ color: '#000', fontSize: 17 }}>Untuk harganya berapa ya min?</Text>
-                    </View>
-                </View>
-                <View style={styles.chatReply}>
-                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
-                        <Text style={{ color: '#fff', marginRight: 30 }}>27-04-2000</Text>
-                        <Text style={{ color: '#fff' }}>12:05</Text>
-                    </View>
-                    <View style={styles.bubbleReply}>
-                        <Text style={{ color: '#000', fontSize: 17 }}>dahla</Text>
-                    </View>
-                </View> */}
             </ScrollView>
             <View style={styles.containerTyping}>
                 <TextInput

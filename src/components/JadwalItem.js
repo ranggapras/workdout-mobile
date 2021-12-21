@@ -10,7 +10,7 @@ const JadwalItem = ({ tanggal, bulan, tahun, harga, navigation }) => {
                     <Image source={Calendar} />
                 </View>
                 <Text style={styles.text}> {tanggal} </Text>
-                <Text style={styles.text}> {bulan} {tahun} </Text>
+                {/* <Text style={styles.text}> {bulan} {tahun} </Text> */}
                 <Text style={styles.harga}> Rp {harga} </Text>
             </View>
         </TouchableOpacity>
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
     text: {
         color: '#000',
         fontSize: 18,
-        fontWeight: '700'
+        fontWeight: '700',
+        textAlign:'center'
     },
     harga: {
         color: '#7e7e7e',

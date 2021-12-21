@@ -78,13 +78,19 @@ const Models = {
                 'content-type':'application/json',
                 'Authorization':`Bearer ${JSON.parse(token).token}`
             },
+            body: JSON.stringify({
+                nameUser : data.user, 
+                password : data.password, 
+                email : data.email, 
+                phoneNumber: data.phonenumber, 
+            })
         })
         const res = await fetchItem.json();
         return res;
     },
     async getWorkout(){
         const token = await AsyncStorage.getItem('token')
-        const fetchItem = await fetch(`http://47.241.214.211:3000/api/workout`,{
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/workouts`,{
             method:'GET',
             headers:{
                 'content-type':'application/json',
@@ -160,9 +166,21 @@ const Models = {
         const res = await fetchItem.json();
         return res;
     },
-    async getMembership(idMembership){
+    async getMembershipProduct(){
         const token = await AsyncStorage.getItem('token')
-        const fetchItem = await fetch(`http://47.241.214.211:3000/api/membership/${idMembership}`,{
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/product/memberships`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getMembershipProductById(idMembershipProduct){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/product/membership/${idMembershipProduct}`,{
             method:'GET',
             headers:{
                 'content-type':'application/json',

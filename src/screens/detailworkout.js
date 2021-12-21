@@ -6,7 +6,26 @@ import Crown from '../assets/crown.png'
 import Foto from '../assets/trainer.png'
 
 const detailworkout = ({ route, navigation }) => {
+    const thousand = val => (
+        val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+      );
+    
     const { information } = route.params;
+    const [schedule, setschedule] = useState(null)
+
+    useEffect(async () => {
+        const getSchedule = async () => {
+          const res = await Models.getSchedule();
+          console.log(res);
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+           setworkout(res.data)
+           console.log(res);
+          }
+        }
+        getWorkout()
+      }, [])
 
     const PersonTrainer = () => {
         if (information == '') {

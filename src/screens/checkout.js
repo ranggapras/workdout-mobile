@@ -5,8 +5,28 @@ import Voucher from '../assets/Voucher.png'
 import Mp from '../assets/mp.svg'
 import Kirim from '../assets/buttonPengiriman.svg'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
 
 const Checkout = ({ route, navigation }) => {
+
+    const [cartmember, setcartmember] = useState([])
+    const thousand = val => (
+        val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+      );
+    useEffect(async () => {
+        const getMembershipProductById = async () => {
+          const res = await Models.getMembershipProductById(id);
+          console.log(res);
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+           setmember(res.data)
+           console.log(res);
+          }
+        }
+        getMembershipProduct()
+      }, [])
+
     const { broadcast } = route.params;
 
     console.log(broadcast);
