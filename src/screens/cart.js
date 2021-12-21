@@ -10,7 +10,7 @@ import Models from '../models/Models';
 const Cart = ({ navigation }) => {
     const [cart, setcart] = useState([])
     const [check, setCheck] = useState(false);
-    useEffect(async () => {
+    useEffect( () => {
         const getCart = async () => {
           const res = await Models.getCart();
           console.log(res);
@@ -32,14 +32,6 @@ const Cart = ({ navigation }) => {
                         <CartItem key={idx} data={d} />
                         )
                     })}
-                {/* <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem /> */}
             </ScrollView>
             <View style={styles.ContainerVoucher}>
                 <View style={{

@@ -14,7 +14,7 @@ const Checkout = ({ route, navigation }) => {
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
       );
-    useEffect(async () => {
+    useEffect( () => {
         const getMembershipProductById = async () => {
           const res = await Models.getMembershipProductById(idMember);
           console.log(res);
@@ -29,7 +29,7 @@ const Checkout = ({ route, navigation }) => {
       }, [idMember])
 
     
-    useEffect(async () => {
+    useEffect( () => {
         const getProductById = async () => {
             const res = await Models.getProductById(idProduct);
             // console.log(res);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import RincianJadwal from '../components/RincianJadwal';
@@ -13,18 +13,18 @@ const detailworkout = ({ route, navigation }) => {
     const { information } = route.params;
     const [schedule, setschedule] = useState(null)
 
-    useEffect(async () => {
+    useEffect( () => {
         const getSchedule = async () => {
           const res = await Models.getSchedule();
           console.log(res);
           if (res.code != '200') {
             // alert(`${res}`);
           } else {
-           setworkout(res.data)
+           setschedule(res.data)
            console.log(res);
           }
         }
-        getWorkout()
+        getSchedule()
       }, [])
 
     const PersonTrainer = () => {
