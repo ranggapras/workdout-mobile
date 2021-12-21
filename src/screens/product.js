@@ -57,7 +57,7 @@ const [product, setproduct] = useState([])
                         console.log(d);
                         return(
                         <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
-                            id: `${d.idProduct}`,
+                            idProduct: `${d.idProduct}`,idMember:''
                         })}/>
                         )
                     })}

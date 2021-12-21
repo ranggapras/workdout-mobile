@@ -72,7 +72,9 @@ const detailproduct = ({ route, navigation }) => {
                 }}
                     onPress={() => navigation.navigate('Checkout', {
                         broadcast: 'produk-beliSekarang',
-                        id: id
+                        idProduct: id,
+                        idMember:''
+
                     })}>
                     <Text style={{ color: '#fff', fontSize: 24, fontWeight: '700' }}>Beli Sekarang</Text>
                 </TouchableOpacity>

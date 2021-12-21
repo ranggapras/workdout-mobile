@@ -76,7 +76,7 @@ const productpopular = ({ navigation }) => {
                         console.log(d);
                         return(
                         <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
-                            id: `${d.idProduct}`,
+                            id: `${d.idProduct}`,idMember:''
                         })}/>
                         )
                     })}

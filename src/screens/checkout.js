@@ -8,7 +8,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Models from '../models/Models';
 
 const Checkout = ({ route, navigation }) => {
-    const { broadcast, id } = route.params;
+    const { broadcast, idMember,idProduct } = route.params;
     const [product, setproduct] = useState([])
     const [member, setmember] = useState([])
     const thousand = val => (
@@ -16,22 +16,22 @@ const Checkout = ({ route, navigation }) => {
       );
     useEffect(async () => {
         const getMembershipProductById = async () => {
-          const res = await Models.getMembershipProductById(id);
+          const res = await Models.getMembershipProductById(idMember);
           console.log(res);
           if (res.code != '200') {
             // alert(`${res}`);
           } else {
            setmember(res.data)
-           console.log(res);
+           console.log(res,'ck');
           }
         }
         getMembershipProductById()
-      }, [])
+      }, [idMember])
 
     
     useEffect(async () => {
         const getProductById = async () => {
-            const res = await Models.getProductById(id);
+            const res = await Models.getProductById(idProduct);
             // console.log(res);
             if (res.code != '200') {
                 // alert(`${res}`);
@@ -41,10 +41,10 @@ const Checkout = ({ route, navigation }) => {
             }
         }
         getProductById()
-    }, [])
+    }, [idProduct])
 
     console.log(broadcast);
-    console.log(id);
+    console.log(idProduct,idMember);
 
     const CheckoutProduct = () => {
         if (broadcast === 'jadwal') {
@@ -126,7 +126,7 @@ const Checkout = ({ route, navigation }) => {
                     color: '#4CE6D4',
                     marginTop: 20,
                     fontSize: 24,
-                }}>5 sesi pertemuan / 35 hari</Text>
+                }}>{member.session} sesi pertemuan / {member.days} hari</Text>
             </View>
         }
     }
@@ -155,7 +155,8 @@ const Checkout = ({ route, navigation }) => {
                         color: '#CBF3E8',
                         fontWeight: '700',
                         fontSize: 18
-                    }}>Rp {`${product.price === null ? '' : thousand(product.price || '0')}`}</Text>
+                    }}>Rp {`${broadcast === 'member' ? member.price === null ? '' : thousand(member.price || '0') 
+                        : product.price === null ? '' : thousand(product.price || '0')}`}</Text>
                 </View>
                 <View style={styles.container}>
                     <View style={{
