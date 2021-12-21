@@ -214,6 +214,102 @@ const Models = {
         const res = await fetchItem.json();
         return res;
     },
+    async getProductById(idProduct){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/product/${idProduct}`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getPromo(){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/promos`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getPromoById(idPromo){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/promo/${idPromo}`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getSchedule(){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/schedules`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getScheduleById(idSchedule){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/schedule/${idSchedule}`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getSchedule(){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/schedules`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getTrainer(){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/trainers`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async getTrainerById(idTrainer){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/trainer/${idTrainer}`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
 }
 
     
