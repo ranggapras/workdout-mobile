@@ -255,6 +255,7 @@ const detailworkout = ({ route, navigation }) => {
             <View style={styles.ContainerCheckout}>
                 <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
                     broadcast: 'jadwal',
+                    id: ''
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Pesan Sekarang</Text>

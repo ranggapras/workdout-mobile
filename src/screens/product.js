@@ -35,9 +35,12 @@ const [product, setproduct] = useState([])
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%') }}>
                     {product.length>0 && product.map((d, idx)=> {
+                        console.log('produk');
                         console.log(d);
                         return(
-                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk')}/>
+                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
+                            id: `${d.idProduct}`,
+                        })}/>
                         )
                     })}
                 </View>
@@ -53,7 +56,9 @@ const [product, setproduct] = useState([])
                  {product.length>0 && product.map((d, idx)=> {
                         console.log(d);
                         return(
-                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk')}/>
+                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
+                            id: `${d.idProduct}`,
+                        })}/>
                         )
                     })}
                 </View>

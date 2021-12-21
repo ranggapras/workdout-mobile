@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import Gambar from '../assets/Produk.png'
 import Voucher from '../assets/Voucher.png'
@@ -29,7 +29,29 @@ const Checkout = ({ route, navigation }) => {
 
     const { broadcast } = route.params;
 
+
+const Checkout = ({ route, navigation }) => {
+    const { broadcast, id } = route.params;
+    const [product, setproduct] = useState([])
+
+    console.log(product);
+
+    useEffect(async () => {
+        const getProductById = async () => {
+            const res = await Models.getProductById(id);
+            // console.log(res);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setproduct(res.data)
+                // console.log('product by id ', res);
+            }
+        }
+        getProductById()
+    }, [])
+
     console.log(broadcast);
+    console.log(id);
 
     const CheckoutProduct = () => {
         if (broadcast === 'jadwal') {
@@ -50,7 +72,31 @@ const Checkout = ({ route, navigation }) => {
                 }}>Rp. 40.000</Text>
             </View>
         }
-        if (broadcast === 'produk') {
+        if (broadcast === 'produk-beliSekarang') {
+            return <View>
+                <View style={styles.containerCart}>
+                    <Image source={{ uri: product.photo }} style={{ width: 80, height: 80 }} />
+                    <View style={{ flexDirection: 'column', height: 60, justifyContent: 'space-between' }}>
+                        <Text style={styles.Judul}>{`${product.name === null ? '' : product.name}`}</Text>
+                        <Text style={styles.Harga}>Rp {`${product.price === null ? '' : thousand(product.price || '0')}`}</Text>
+                    </View>
+                    <Text style={styles.Jumlah}>x1</Text>
+                </View>
+                <View style={styles.containerPengiriman}>
+                    <Text style={styles.teksOpsi}>Opsi Pengiriman</Text>
+                    <View style={styles.Ongkos}>
+                        <Text style={styles.teksOngkos}>Ongkos Kirim</Text>
+                        <View style={styles.hargaOngkos}>
+                            <Text style={styles.teksHargaOngkos}>Rp 5.000</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('OpsiKirim')}>
+                                <Kirim />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        }
+        if (broadcast === 'produk-keranjang') {
             return <View>
                 <View style={styles.containerCart}>
                     <Image source={Gambar} style={{ width: 80, height: 80 }} />
@@ -116,7 +162,7 @@ const Checkout = ({ route, navigation }) => {
                         color: '#CBF3E8',
                         fontWeight: '700',
                         fontSize: 18
-                    }}>Rp 55.000</Text>
+                    }}>Rp {`${product.price === null ? '' : thousand(product.price || '0')}`}</Text>
                 </View>
                 <View style={styles.container}>
                     <View style={{
@@ -177,7 +223,7 @@ const Checkout = ({ route, navigation }) => {
                         color: '#fff',
                         opacity: 0.7,
                         fontSize: 16
-                    }}>Rp 55.000</Text>
+                    }}>Rp {`${product.price === null ? '' : thousand(product.price || '0')}`}</Text>
                 </View>
                 <View style={{
                     width: wp('100%'),
@@ -349,4 +395,4 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '700'
     }
-})
+})}

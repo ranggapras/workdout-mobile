@@ -1,28 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import Gambar from '../assets/Produk.png'
 import Cart from '../assets/cart-green.svg'
 import Chat from '../assets/chat-green.svg'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
 
-const detailproduct = ({ navigation }) => {
+const thousand = val => (
+    val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+);
+
+const detailproduct = ({ route, navigation }) => {
+    const { id } = route.params;
+    const [product, setproduct] = useState([])
+
+    console.log(product);
+
+    useEffect(async () => {
+        const getProductById = async () => {
+            const res = await Models.getProductById(id);
+            // console.log(res);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setproduct(res.data)
+                // console.log('product by id ', res);
+            }
+        }
+        getProductById()
+    }, [])
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ paddingBottom: 50 }}>
-                    <Image source={Gambar} style={styles.fotoProduk} />
-                    <Text style={styles.judul}>Matreas Yoga Anti Slip</Text>
-                    <Text style={styles.harga}>Rp. 55.000</Text>
+                    <Image source={{ uri: product.photo }} style={styles.fotoProduk} />
+                    <Text style={styles.judul}>{`${product.name === null ? '' : product.name}`}</Text>
+                    <Text style={styles.harga}>Rp. {`${product.price === null ? '' : thousand(product.price || '0')}`}</Text>
                     <Text style={styles.rincian}>Rincian produk</Text>
-                    <Text style={styles.stok}>Stok 20</Text>
-                    <Text style={styles.bahan}>Bahan natural rubber PU{'\n'}Lebar 61 cm{'\n'}Panjang 173 cm</Text>
-                    <Text style={styles.deskripsi}>Butuh matras yoga dengan kualitas terbaik?
-                        Produk ini akan membuat Work Out anda jauh lebih berkualitas.
-                        Permukaan yang halus dan sangat flexible, membuat sangat nyaman dipakai untuk menopang tubuh, lutut, pinggang, dan lainnya pada saat melakukan latihan.
-                        {'\n'}{'\n'}
-                        Tidak menyebabkan alergi.
-                        Anti Slip
-                    </Text>
+                    <Text style={styles.stok}>Stok {`${product.stock === null ? '0' : product.stock}`}</Text>
+                    <Text style={styles.deskripsi}>{`${product.description === null ? '' : product.description}`}</Text>
                 </View>
             </ScrollView>
             <View style={{ flexDirection: 'row' }}>
@@ -34,7 +51,7 @@ const detailproduct = ({ navigation }) => {
                     borderRightWidth: 1,
                     borderColor: '#58B4A7'
                 }}
-                onPress={() => navigation.navigate('Pesan')}>
+                    onPress={() => navigation.navigate('Pesan')}>
                     <Chat />
                 </TouchableOpacity>
                 <TouchableOpacity style={{
@@ -43,7 +60,7 @@ const detailproduct = ({ navigation }) => {
                     justifyContent: 'center',
                     paddingVertical: 10
                 }}
-                onPress={() => navigation.navigate('Keranjang')}>
+                    onPress={() => navigation.navigate('Keranjang')}>
                     <Cart />
                 </TouchableOpacity>
                 <TouchableOpacity style={{
@@ -53,9 +70,10 @@ const detailproduct = ({ navigation }) => {
                     paddingVertical: 10,
                     backgroundColor: '#58B4A7'
                 }}
-                onPress={() => navigation.navigate('Checkout', {
-                    broadcast: 'produk',
-                })}>
+                    onPress={() => navigation.navigate('Checkout', {
+                        broadcast: 'produk-beliSekarang',
+                        id: id
+                    })}>
                     <Text style={{ color: '#fff', fontSize: 24, fontWeight: '700' }}>Beli Sekarang</Text>
                 </TouchableOpacity>
             </View>
@@ -68,7 +86,7 @@ export default detailproduct
 const styles = StyleSheet.create({
     fotoProduk: {
         width: wp('100%'),
-        height: 250
+        height: 250,
     },
     judul: {
         color: '#fff',
