@@ -41,7 +41,8 @@ const Cart = ({ navigation }) => {
                     <Text style={styles.teksHarga}>Rp 55.000</Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
-                    broadcast: 'produk',
+                    broadcast: 'produk-keranjang',
+                    id: ''
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Checkout(1)</Text>

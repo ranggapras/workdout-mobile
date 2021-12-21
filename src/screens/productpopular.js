@@ -75,7 +75,9 @@ const productpopular = ({ navigation }) => {
                         {product.length>0 && product.map((d, idx)=> {
                         console.log(d);
                         return(
-                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk')}/>
+                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
+                            id: `${d.idProduct}`,
+                        })}/>
                         )
                     })}
                         </View>

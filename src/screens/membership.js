@@ -24,18 +24,23 @@ const membership = ({ navigation }) => {
                 <View style={{ flexDirection: 'column' }}>
                     <MemberItem harga={'1.800.000'} sesi={5} hari={35} navigation={() => navigation.navigate('Checkout', {
                         broadcast: 'member',
+                        id: ''
                     })} />
                     <MemberItem harga={'3.700.000'} sesi={11} hari={50} navigation={() => navigation.navigate('Checkout', {
                         broadcast: 'member',
+                        id: ''
                     })} />
                     <MemberItem harga={'6.000.000'} sesi={20} hari={60} navigation={() => navigation.navigate('Checkout', {
                         broadcast: 'member',
+                        id: ''
                     })} />
                     <MemberItem harga={'7.700.000'} sesi={31} hari={80} navigation={() => navigation.navigate('Checkout', {
                         broadcast: 'member',
+                        id: ''
                     })} />
                     <MemberItem harga={'9.700.000'} sesi={61} hari={120} navigation={() => navigation.navigate('Checkout', {
                         broadcast: 'member',
+                        id: ''
                     })} />
                 </View>
             </ScrollView>
