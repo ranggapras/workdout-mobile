@@ -185,7 +185,7 @@ const Models = {
     },
     async getMembershipProductById(idMembershipProduct){
         const token = await AsyncStorage.getItem('token')
-        const fetchItem = await fetch(`http://47.241.214.211:3000/api/membership/${idMembershipProduct}`,{
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/product/membership/${idMembershipProduct}`,{
             method:'GET',
             headers:{
                 'content-type':'application/json',

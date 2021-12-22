@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const RincianJadwal = ({ hari, tanggal, kuota,data }) => {
+const RincianJadwal = ({ hari, tanggal, kuota, data, change, active }) => {
     const [check, setCheck] = useState(false);
     const [jam, setJam] = useState();
 
@@ -37,23 +37,23 @@ const RincianJadwal = ({ hari, tanggal, kuota,data }) => {
                     onValueChange={(itemValue, itemIndex) =>
                         setJam(itemValue)
                     }>
-                {data.time.map((d,idx)=>{
-                    return(
-                        <Picker.Item key={idx} label={d} value={d} />
-                    )
-                } )}
+                    {data.time.map((d, idx) => {
+                        return (
+                            <Picker.Item key={idx} label={d} value={d} />
+                        )
+                    })}
                 </Picker>
             </View>
             <View style={{ width: 50, alignItems: 'center' }}>
                 <Text style={styles.teks}>{kuota}</Text>
             </View>
-            <TouchableOpacity onPress={() => setCheck(!check)}>
+            <TouchableOpacity onPress={() => change(data.idSchedule)}>
                 <View style={{
                     width: 25,
                     height: 25,
                     borderRadius: 50,
-                    backgroundColor: check ? '#58B4A7' : 'transparent',
-                    borderWidth: check ? 0 : 2,
+                    backgroundColor: active ? '#58B4A7' : 'transparent',
+                    borderWidth: active ? 0 : 2,
                     borderColor: '#58B4A7'
                 }}></View>
             </TouchableOpacity>

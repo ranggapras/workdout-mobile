@@ -8,14 +8,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Models from '../models/Models';
 
 const Checkout = ({ route, navigation }) => {
-    const { broadcast, idMember, idProduct, ongkir, potOngkir, potDiskon } = route.params;
+    const { broadcast, idMember, idProduct, idJadwal, ongkir, potOngkir, potDiskon } = route.params;
     const [product, setproduct] = useState([])
-    const [member, setmember] = useState([])
+    const [member, setmember] = useState(null)
+    const [jadwal, setjadwal] = useState(null)
     const [hargaPesanan, setHargaPesanan] = useState('')
 
-    console.log(potDiskon)
-    console.log(potOngkir)
-
+    console.log(idJadwal)
+    console.log(jadwal)
 
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
@@ -24,11 +24,9 @@ const Checkout = ({ route, navigation }) => {
     let totalOngkir = ongkir - parseInt(potOngkir || '0');
     let totalHarga = hargaPesanan - Math.ceil((parseInt(potDiskon || '0') * hargaPesanan) / 100);
 
-    console.log(typeof hargaPesanan)
-
     useEffect(() => {
         if (broadcast === 'member') {
-            setHargaPesanan(member.price)
+            setHargaPesanan(member === null ? 0 : member.price)
         }
         if (broadcast === 'produk-beliSekarang') {
             setHargaPesanan(product.price)
@@ -44,17 +42,15 @@ const Checkout = ({ route, navigation }) => {
     useEffect(() => {
         const getMembershipProductById = async () => {
             const res = await Models.getMembershipProductById(idMember);
-            console.log(res);
+            // console.log(res);
             if (res.code != '200') {
                 // alert(`${res}`);
             } else {
                 setmember(res.data)
-                console.log(res, 'ck');
             }
         }
         getMembershipProductById()
     }, [idMember])
-
 
     useEffect(() => {
         const getProductById = async () => {
@@ -63,15 +59,24 @@ const Checkout = ({ route, navigation }) => {
             if (res.code != '200') {
                 // alert(`${res}`);
             } else {
-                setproduct(res.data)
-                // console.log('product by id ', res);
+                setproduct(res)
             }
         }
         getProductById()
     }, [idProduct])
 
-    console.log(broadcast);
-    console.log(idProduct, idMember);
+    useEffect(() => {
+        const getScheduleById = async () => {
+            const res = await Models.getScheduleById(idJadwal);
+            console.log(res);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setjadwal(res)
+            }
+        }
+        getScheduleById()
+    }, [idJadwal])
 
     const CheckoutProduct = () => {
         if (broadcast === 'jadwal') {
@@ -158,9 +163,10 @@ const Checkout = ({ route, navigation }) => {
                     color: '#4CE6D4',
                     marginTop: 20,
                     fontSize: 24,
-                }}>{member.session} sesi pertemuan / {member.days} hari</Text>
+                }}>{`${member === null ? '' : member.session} sesi pertemuan / ${member === null ? '' : member.days} hari`}</Text>
             </View>
         }
+        return <View></View>
     }
 
     const Pesan = () => {

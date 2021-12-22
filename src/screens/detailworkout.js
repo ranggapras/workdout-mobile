@@ -6,40 +6,41 @@ import Crown from '../assets/crown.png'
 import Foto from '../assets/trainer.png'
 import Models from '../models/Models'
 import moment from 'moment'
-import 'moment/locale/id' 
+import 'moment/locale/id'
 
 const detailworkout = ({ route, navigation }) => {
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-      );
-    
-    const { information } = route.params;
+    );
+
+    const { information, idWorkout, price, date } = route.params;
     const [schedule, setschedule] = useState([])
-    const { idWorkout,price,date } = route.params;
     const [dataUser, setdataUser] = useState(null)
+    const [chekoutSchedule, setCheckoutSchedule] = useState('');
+
     useEffect(() => {
         const getProfil = async () => {
-          const res = await Models.getProfil();
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-           setdataUser(res)
-          }
+            const res = await Models.getProfil();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setdataUser(res)
+            }
         }
         getProfil()
-      }, [])
-    useEffect( () => {
+    }, [])
+    useEffect(() => {
         const getScheduleByIdWorkout = async () => {
-          const res = await Models.getScheduleByIdWorkout(idWorkout);
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-           setschedule(res.data)
-           console.log(res.data);
-          }
+            const res = await Models.getScheduleByIdWorkout(idWorkout);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setschedule(res.data)
+                console.log(res.data);
+            }
         }
         getScheduleByIdWorkout()
-      }, [idWorkout])
+    }, [idWorkout])
 
     const PersonTrainer = () => {
         if (information == '') {
@@ -102,7 +103,7 @@ const detailworkout = ({ route, navigation }) => {
                         fontSize: 18,
                         marginRight: 5
                     }}>Sisa PT : </Text>
-                    <Text style={styles.teks}>{`${dataUser === null ? '' :(dataUser.data.sessionLeft)}`}</Text>
+                    <Text style={styles.teks}>{`${dataUser === null ? '' : (dataUser.data.sessionLeft)}`}</Text>
                 </View>
             </View>
         }
@@ -237,14 +238,16 @@ const detailworkout = ({ route, navigation }) => {
                     </View>
                     <Text style={styles.teks}>Kuota</Text>
                 </View>
-                        {schedule.length > 0 && schedule.map((d, idx) => {
-                        return (
-                            <RincianJadwal key = {idx} data={d}
+                {schedule.length > 0 && schedule.map((d, idx) => {
+                    return (
+                        <RincianJadwal key={idx} data={d}
                             hari={moment(d.date).format('dddd')}
                             tanggal={moment(d.date).format('DD MMMM YYYY')}
-                            kuota={d.quota} />
-                        )
-                    })}
+                            kuota={d.quota} 
+                            active={chekoutSchedule === d.idSchedule ? true : false} 
+                            change={setCheckoutSchedule}/>
+                    )
+                })}
 
                 <PersonTrainer />
             </ScrollView>
@@ -252,9 +255,10 @@ const detailworkout = ({ route, navigation }) => {
             <View style={styles.ContainerCheckout}>
                 <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
                     broadcast: 'jadwal',
-                    idProduct: '', 
+                    idProduct: '',
                     idMember: '',
-                    ongkir: ''
+                    ongkir: '',
+                    idJadwal: chekoutSchedule
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Pesan Sekarang</Text>
