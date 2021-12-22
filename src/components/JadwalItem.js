@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import Calendar from '../assets/calendar-workout.png'
 
-const JadwalItem = ({ tanggal, bulan, tahun, harga, navigation }) => {
+const JadwalItem = ({ tanggal, bulan, tahun, harga, navigation, }) => {
     return (
         <TouchableOpacity onPress={navigation}>
             <View style={styles.card}>
