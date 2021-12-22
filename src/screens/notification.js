@@ -1,24 +1,47 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView} from 'react-native'
 import Logoair from '../assets/minumair.svg'
 import Logocalendar from '../assets/calendarNotif.svg'
 import Logopromosi from '../assets/promosiNotif.svg'
 import Gambar1 from '../assets/trainer.png'
 import Gambar2 from '../assets/Produk.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import messaging from '@react-native-firebase/messaging';
+import { useEffect,useState } from 'react'
+import Models
+ from '../models/Models'
+import moment from 'moment'
 const notification = () => {
+
+    const [notif, setnotif] = useState([])
+    useEffect(() => {
+        const getNotif = async () => {
+          const res = await Models.getNotification();
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+           setnotif(res.data)
+           console.log(res.data);
+          }
+        }
+        getNotif()
+      }, [])
+
     return (
         <View style={{ flex: 1 }}>
             <ScrollView>
-                <View style={styles.container}>
+               {notif.map((d,idx)=> {
+                   return(
+                    <View key={idx} style={styles.container}>
                     <Logoair />
                     <View style={styles.containerteks}>
-                        <Text style={styles.judul}>Jangan Lupa Saatnya Minum Air</Text>
-                        <Text style={styles.waktu}>11:00</Text>
+                        <Text style={styles.judul}>{d.title}</Text>
+                        <Text style={styles.waktu}>{moment(d.dateTime).format('DD MMMM YYYY hh:mm')}</Text>
                     </View>
                 </View>
-                <View style={styles.container}>
+                   )
+               })}
+                {/* <View style={styles.container}>
                     <Logocalendar />
                     <View style={styles.containerteks}>
                         <Text style={styles.judul}>30 menit lagi jadwal gym mu mulai!</Text>
@@ -31,7 +54,7 @@ const notification = () => {
                         <Text style={styles.judul}>Promosi WORKD Out</Text>
                         <Text style={styles.waktu}>11:00</Text>
                     </View>
-                </View>
+                </View> */}
 
                 <Text style={{
                     color: '#fff',
