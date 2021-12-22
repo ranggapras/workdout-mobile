@@ -22,12 +22,15 @@ import { TouchableOpacity } from 'react-native';
 import Back from '../assets/back.svg'
 import Laki from '../assets/lk.svg'
 import Perempuan from '../assets/pr.svg'
+import { useTheme } from 'styled-components';
 
 
 const kalkulatorbb = ({ navigation }) => {
 
   const [beratBadan, setBeratBadan] = useState('')
   const [tinggiBadan, setTinggiBadan] = useState('')
+  const [hitungtotal, sethitungtotal] = useState('')
+  
 
   const onChangebb = (text) => {
     setBeratBadan(text.replace(/[^0-9]/g, ''));
@@ -40,6 +43,10 @@ const kalkulatorbb = ({ navigation }) => {
   }
   const [aktivitas, setAktivitas] = useState();
 
+  const hitung = () => {
+    const total = beratBadan/((tinggiBadan/100)*(tinggiBadan/100))
+    sethitungtotal(total)
+  }
   return (
     <NativeBaseProvider >
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
@@ -67,7 +74,10 @@ const kalkulatorbb = ({ navigation }) => {
             <Input textAlign='center' ml='22.5%' h='70' w='120' bgColor='white' keyboardType='numeric' borderRadius='20' onChangeText={(text) => onChangebb(text)}
               value={beratBadan} />
           </FormControl>
-          <Box size='sm' backgroundColor='white' h='70' w='120' borderRadius='20' alignSelf='center' mt='15%' />
+          <Box size='sm' backgroundColor='white' h='70' w='120' borderRadius='20' alignSelf='center' mt='15%' >
+          <Text textAlign='center' marginTop='6'>{(hitungtotal).toFixed(1)}</Text>
+          </Box>
+          
           <TouchableOpacity onPress={() => navigation.navigate("Tabel")}>
             <Text mt='5' color='white' alignSelf='center' fontSize='18' borderBottomColor='white' borderBottomWidth="1">
               Lihat Tabel IMT
@@ -78,7 +88,7 @@ const kalkulatorbb = ({ navigation }) => {
               color: "black",
               fontSize: 20
             }}
-            onPress={() => navigation.navigate("Hasil")}>
+            onPress={() =>hitung() }>
             Hitung
           </Button>
         </Box>

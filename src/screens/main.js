@@ -40,12 +40,10 @@ const Main = ({ navigation }) => {
   useEffect(() => {
     const getProfil = async () => {
       const res = await Models.getProfil();
-      console.log(res);
       if (res.code != '200') {
         // alert(`${res}`);
       } else {
        setdataUser(res)
-       console.log(res);
       }
     }
     getProfil()

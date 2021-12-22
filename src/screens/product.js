@@ -10,7 +10,7 @@ const product = ({ navigation }) => {
 
     const [product, setproduct] = useState([])
 
-    useEffect(async () => {
+    useEffect(() => {
         const getProduct = async () => {
             const res = await Models.getProduct();
             console.log(res);
