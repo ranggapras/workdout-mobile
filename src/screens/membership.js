@@ -44,7 +44,10 @@ const [member, setmember] = useState([])
                         console.log(d);
                         return(
                             <MemberItem key={idx} data={d} harga={thousand(d.price)} sesi={d.session} hari={d.days} navigation={() => navigation.navigate('Checkout', {
-                                broadcast: 'member', idMember:d.idMembershipProduct, idProduct:''
+                                broadcast: 'member', 
+                                idMember:d.idMembershipProduct, 
+                                idProduct:'', 
+                                ongkir: ''
                             })} />
                         )
                     })}

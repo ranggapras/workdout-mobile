@@ -37,7 +37,7 @@ const Main = ({ navigation }) => {
     BackHandler.addEventListener('hardwareBackPress', backAction);
   }, []);
 
-  useEffect(async () => {
+  useEffect(() => {
     const getProfil = async () => {
       const res = await Models.getProfil();
       console.log(res);

@@ -2,16 +2,27 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const pengiriman = ({ navigation }) => {
+const pengiriman = ({ route, navigation }) => {
+    const { broadcast } = route.params;
     return (
         <View>
-            <TouchableOpacity onPress={() => navigation.navigate('Checkout')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
+                broadcast: broadcast,
+                idProduct: '',
+                idMember: '',
+                ongkir: 5000
+            })}>
                 <View style={styles.containerPengiriman}>
                     <Text style={styles.teksOngkos}>Kurir Gym</Text>
                     <Text style={styles.teksHargaOngkos}>Rp 5.000</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Checkout')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
+                broadcast: broadcast,
+                idProduct: '',
+                idMember: '',
+                ongkir: 0
+            })}>
                 <View style={styles.containerPengiriman}>
                     <Text style={styles.teksOngkos}>Ambil di Tempat Gym</Text>
                     <Text style={styles.teksHargaOngkos}>Rp 0</Text>

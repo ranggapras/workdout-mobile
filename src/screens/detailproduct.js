@@ -11,14 +11,14 @@ const thousand = val => (
 );
 
 const detailproduct = ({ route, navigation }) => {
-    const { id } = route.params;
+    const { idProduct } = route.params;
     const [product, setproduct] = useState([])
 
     console.log(product);
 
     useEffect(async () => {
         const getProductById = async () => {
-            const res = await Models.getProductById(id);
+            const res = await Models.getProductById(idProduct);
             // console.log(res);
             if (res.code != '200') {
                 // alert(`${res}`);
@@ -72,8 +72,9 @@ const detailproduct = ({ route, navigation }) => {
                 }}
                     onPress={() => navigation.navigate('Checkout', {
                         broadcast: 'produk-beliSekarang',
-                        idProduct: id,
-                        idMember:''
+                        idProduct: idProduct,
+                        idMember: '', 
+                        ongkir: 5000
 
                     })}>
                     <Text style={{ color: '#fff', fontSize: 24, fontWeight: '700' }}>Beli Sekarang</Text>

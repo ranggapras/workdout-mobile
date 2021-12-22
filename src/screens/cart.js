@@ -42,7 +42,9 @@ const Cart = ({ navigation }) => {
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
                     broadcast: 'produk-keranjang',
-                    id: ''
+                    idProduct: '',
+                    idMember: '',
+                    ongkir: ''
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Checkout(1)</Text>

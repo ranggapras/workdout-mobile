@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Persen from '../assets/persen.svg'
 
-const VoucherItem = ({ namaVoucher, jumlahDiskon }) => {
-    const [check, setCheck] = useState(false);
+const VoucherItem = ({ data, change, active }) => {
+    const type = data.type
 
     return (
         <View style={{
@@ -28,12 +28,12 @@ const VoucherItem = ({ namaVoucher, jumlahDiskon }) => {
                 justifyContent: 'space-evenly',
                 flexDirection: 'column'
             }}>
-                <Persen />
+                {type === 3 ? <></> : <Persen />}
                 <Text style={{
                     fontWeight: '700',
                     fontSize: 16,
                     textAlign: 'center'
-                }}>{namaVoucher}</Text>
+                }}>{type === 1 ? 'Jadwal' : type === 2 ? 'Produk' : 'Gratis Ongkir'}</Text>
             </View>
             <View style={{
                 width: wp('70%'),
@@ -48,14 +48,14 @@ const VoucherItem = ({ namaVoucher, jumlahDiskon }) => {
                     fontWeight: '700',
                     fontSize: 20,
                     textAlign: 'center'
-                }}>Diskon {jumlahDiskon}%</Text>
-                <TouchableOpacity onPress={() => setCheck(!check)}>
+                }}>{data.name}</Text>
+                <TouchableOpacity onPress={() => change(data.idPromo)}>
                     <View style={{
                         width: 25,
                         height: 25,
                         borderRadius: 50,
-                        backgroundColor: check ? '#58B4A7' : '#fff',
-                        borderWidth: check ? 0 : 2,
+                        backgroundColor: active ? '#58B4A7' : '#fff',
+                        borderWidth: active ? 0 : 2,
                         borderColor: '#58B4A7'
                     }}></View>
                 </TouchableOpacity>

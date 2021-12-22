@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import CardItem from '../components/CardItem'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -9,17 +9,17 @@ const productnew = ({ navigation }) => {
 
     useEffect(async () => {
         const getProduct = async () => {
-          const res = await Models.getProduct();
-          console.log(res);
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-            setproduct(res.data)
-           console.log('asd ',res);
-          }
+            const res = await Models.getProduct();
+            console.log(res);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setproduct(res.data)
+                console.log('asd ', res);
+            }
         }
         getProduct()
-      }, [])
+    }, [])
 
     const [filter, setFilter] = useState('');
 
@@ -74,14 +74,14 @@ const productnew = ({ navigation }) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ paddingBottom: 60 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%'), marginBottom: 25 }}>
-                        {product.length>0 && product.map((d, idx)=> {
-                        console.log(d);
-                        return(
-                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
-                            id: `${d.idProduct}`,idMember:''
-                        })}/>
-                        )
-                    })}
+                            {product.length > 0 && product.map((d, idx) => {
+                                console.log(d);
+                                return (
+                                    <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
+                                        id: `${d.idProduct}`, idMember: ''
+                                    })} />
+                                )
+                            })}
                         </View>
                     </View>
                 </ScrollView>

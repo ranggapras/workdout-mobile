@@ -1,10 +1,44 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import VoucherItem from '../components/VoucherItem'
 import VocOngkirItem from '../components/VocOngkirItem'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Models from '../models/Models';
 
-const voucher = () => {
+const voucher = ({ route, navigation }) => {
+    const { broadcast, ongkir } = route.params;
+    const [diskon, setDiskon] = useState('');
+    const [voucher, setVoucher] = useState([]);
+    const [potongan, setPotongan] = useState([]);
+    const typePotongan = potongan.type
+    const jumlahPotongan = potongan.amount
+
+    console.log(ongkir)
+
+    useEffect(() => {
+        const getPromo = async () => {
+            const res = await Models.getPromo();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setVoucher(res.data)
+            }
+        }
+        getPromo()
+    }, [])
+
+    useEffect(() => {
+        const getPromoById = async () => {
+            const res = await Models.getPromoById(diskon);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setPotongan(res.data)
+            }
+        }
+        getPromoById()
+    }, [diskon])
+
     return (
         <View style={{ flex: 1 }}>
             <Text style={{
@@ -15,17 +49,15 @@ const voucher = () => {
                 fontWeight: '700'
             }}>Voucher Diskon</Text>
             <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-                <VoucherItem namaVoucher={'Jadwal Gym'} jumlahDiskon={30} />
-                <VocOngkirItem jumlahDiskon={100} />
-                <VoucherItem namaVoucher={'Diskon Produk'} jumlahDiskon={50} />
-                <VocOngkirItem jumlahDiskon={10} />
-                <VoucherItem namaVoucher={'Diskon 12.12'} jumlahDiskon={10} />
-                <VocOngkirItem jumlahDiskon={40} />
-                <VocOngkirItem jumlahDiskon={40} />
+                {voucher.length > 0 && voucher.map((d, idx) => {
+                    return (
+                        <VoucherItem key={idx} data={d} active={diskon === d.idPromo ? true : false} change={setDiskon} />
+                    )
+                })}
             </ScrollView>
             <View style={{
                 width: wp('100%'),
-                height: 70,
+                paddingVertical: 15,
                 backgroundColor: '#CBF3E8',
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -33,14 +65,26 @@ const voucher = () => {
                 marginBottom: 5
             }}>
                 <View style={{
-                    flexDirection: 'row'
+                    flexDirection: 'row',
+                    width: wp('90%'),
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                 }}>
-                    <Text style={{ color: '#58B4A7', fontSize: 18, fontWeight: '700' }}>1 </Text>
-                    <Text style={{ color: '#000', fontSize: 18, fontWeight: '700' }}>Voucher dipilih </Text>
-                    <Text style={{ color: '#58B4A7', fontSize: 18, fontWeight: '700' }}>- Rp 27.500 didapatkan</Text>
+                    <Text style={{ color: '#58B4A7', fontSize: 18, fontWeight: '700' }}>{diskon === '' ? '0' : '1'}</Text>
+                    <Text style={{ color: '#000', fontSize: 18, fontWeight: '700' }}> Voucher dipilih </Text>
+                    <Text style={{ color: '#58B4A7', fontSize: 18, fontWeight: '700' }}>{potongan.name} didapatkan</Text>
                 </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Checkout', {
+                    broadcast: broadcast,
+                    idProduct: '',
+                    idMember: '',
+                    ongkir: ongkir,
+                    potOngkir: `${typePotongan === 3 ? jumlahPotongan : ''}`,
+                    potDiskon: `${typePotongan !== 3 ? jumlahPotongan : ''}`
+                })}>
                 <View style={{
                     width: wp('100%'),
                     height: 80,

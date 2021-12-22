@@ -8,28 +8,55 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Models from '../models/Models';
 
 const Checkout = ({ route, navigation }) => {
-    const { broadcast, idMember,idProduct } = route.params;
+    const { broadcast, idMember, idProduct, ongkir, potOngkir, potDiskon } = route.params;
     const [product, setproduct] = useState([])
     const [member, setmember] = useState([])
+    const [hargaPesanan, setHargaPesanan] = useState('')
+
+    console.log(potDiskon)
+    console.log(potOngkir)
+
+
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-      );
-    useEffect(async () => {
+    );
+
+    let totalOngkir = ongkir - parseInt(potOngkir || '0');
+    let totalHarga = hargaPesanan - Math.ceil((parseInt(potDiskon || '0') * hargaPesanan) / 100);
+
+    console.log(typeof hargaPesanan)
+
+    useEffect(() => {
+        if (broadcast === 'member') {
+            setHargaPesanan(member.price)
+        }
+        if (broadcast === 'produk-beliSekarang') {
+            setHargaPesanan(product.price)
+        }
+        if (broadcast === 'produk-keranjang') {
+            setHargaPesanan(product.price)
+        }
+        if (broadcast === 'jadwal') {
+            setHargaPesanan(product.price)
+        }
+    }, [broadcast, member, product])
+
+    useEffect(() => {
         const getMembershipProductById = async () => {
-          const res = await Models.getMembershipProductById(idMember);
-          console.log(res);
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-           setmember(res.data)
-           console.log(res,'ck');
-          }
+            const res = await Models.getMembershipProductById(idMember);
+            console.log(res);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setmember(res.data)
+                console.log(res, 'ck');
+            }
         }
         getMembershipProductById()
-      }, [idMember])
+    }, [idMember])
 
-    
-    useEffect(async () => {
+
+    useEffect(() => {
         const getProductById = async () => {
             const res = await Models.getProductById(idProduct);
             // console.log(res);
@@ -44,7 +71,7 @@ const Checkout = ({ route, navigation }) => {
     }, [idProduct])
 
     console.log(broadcast);
-    console.log(idProduct,idMember);
+    console.log(idProduct, idMember);
 
     const CheckoutProduct = () => {
         if (broadcast === 'jadwal') {
@@ -80,8 +107,11 @@ const Checkout = ({ route, navigation }) => {
                     <View style={styles.Ongkos}>
                         <Text style={styles.teksOngkos}>Ongkos Kirim</Text>
                         <View style={styles.hargaOngkos}>
-                            <Text style={styles.teksHargaOngkos}>Rp 5.000</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('OpsiKirim')}>
+                            <Text style={styles.teksHargaOngkos}>Rp {thousand(ongkir || '0')}</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('OpsiKirim', {
+                                broadcast: 'produk-beliSekarang',
+                                ongkir: ongkir
+                            })}>
                                 <Kirim />
                             </TouchableOpacity>
                         </View>
@@ -105,7 +135,9 @@ const Checkout = ({ route, navigation }) => {
                         <Text style={styles.teksOngkos}>Ongkos Kirim</Text>
                         <View style={styles.hargaOngkos}>
                             <Text style={styles.teksHargaOngkos}>Rp 5.000</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('OpsiKirim')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('OpsiKirim', {
+                                broadcast: 'produk-keranjang'
+                            })}>
                                 <Kirim />
                             </TouchableOpacity>
                         </View>
@@ -155,8 +187,7 @@ const Checkout = ({ route, navigation }) => {
                         color: '#CBF3E8',
                         fontWeight: '700',
                         fontSize: 18
-                    }}>Rp {`${broadcast === 'member' ? member.price === null ? '' : thousand(member.price || '0') 
-                        : product.price === null ? '' : thousand(product.price || '0')}`}</Text>
+                    }}>Rp {thousand(hargaPesanan || '0')}</Text>
                 </View>
                 <View style={styles.container}>
                     <View style={{
@@ -171,12 +202,15 @@ const Checkout = ({ route, navigation }) => {
                             marginLeft: 10
                         }}>Voucher Diskon</Text>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate('Voucher')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Voucher', {
+                        broadcast: broadcast,
+                        ongkir: ongkir
+                    })}>
                         <Text style={{
                             color: '#fff',
                             opacity: 0.7,
                             fontSize: 16
-                        }}>Pilih Voucher Diskon</Text>
+                        }}>{!((potDiskon) || (potOngkir)) ? 'Pilih Voucher Diskon' : '1 Voucher Dipilih'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
@@ -217,7 +251,7 @@ const Checkout = ({ route, navigation }) => {
                         color: '#fff',
                         opacity: 0.7,
                         fontSize: 16
-                    }}>Rp {`${product.price === null ? '' : thousand(product.price || '0')}`}</Text>
+                    }}>Rp {totalHarga}</Text>
                 </View>
                 <View style={{
                     width: wp('100%'),
@@ -236,7 +270,7 @@ const Checkout = ({ route, navigation }) => {
                         color: '#fff',
                         opacity: 0.7,
                         fontSize: 16
-                    }}>Rp 5.000</Text>
+                    }}>Rp {totalOngkir}</Text>
                 </View>
                 <View style={{
                     width: wp('100%'),
@@ -256,13 +290,13 @@ const Checkout = ({ route, navigation }) => {
                         color: '#CBF3E8',
                         fontWeight: '700',
                         fontSize: 18
-                    }}>Rp 60.000</Text>
+                    }}>Rp {thousand(totalOngkir + totalHarga)}</Text>
                 </View>
             </ScrollView>
             <View style={styles.ContainerCheckout}>
                 <View style={styles.BoxSubTotal}>
                     <Text style={styles.teksSubtotal}>Total Pembayaran</Text>
-                    <Text style={styles.teksHarga}>Rp 60.000</Text>
+                    <Text style={styles.teksHarga}>Rp {thousand(totalOngkir + totalHarga)}</Text>
                 </View>
                 <TouchableOpacity onPress={Pesan}>
                     <View style={styles.BoxCheckout}>

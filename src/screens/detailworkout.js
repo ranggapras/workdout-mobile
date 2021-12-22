@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import RincianJadwal from '../components/RincianJadwal';
@@ -255,7 +255,9 @@ const detailworkout = ({ route, navigation }) => {
             <View style={styles.ContainerCheckout}>
                 <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
                     broadcast: 'jadwal',
-                    id: ''
+                    idProduct: '', 
+                    idMember: '',
+                    ongkir: ''
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Pesan Sekarang</Text>

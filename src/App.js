@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Router from './router/index';
+import { LogBox } from 'react-native'
 
 const MyTheme = {
   colors: {
@@ -9,6 +10,11 @@ const MyTheme = {
     text: '#ffffff'
   }
 };
+
+LogBox.ignoreLogs([
+  `TypeError: destroy is not a function. (In 'destroy()', 'destroy' is an
+  instance of Promise)`,
+])
 
 const App = () => {
   return (

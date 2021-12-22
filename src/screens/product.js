@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import Gambar from '../assets/Produk.png'
 import CardItem from '../components/CardItem'
@@ -8,21 +8,21 @@ import Models from '../models/Models';
 
 const product = ({ navigation }) => {
 
-const [product, setproduct] = useState([])
+    const [product, setproduct] = useState([])
 
     useEffect(async () => {
         const getProduct = async () => {
-          const res = await Models.getProduct();
-          console.log(res);
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-            setproduct(res.data)
-           console.log('asd ',res);
-          }
+            const res = await Models.getProduct();
+            console.log(res);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setproduct(res.data)
+                console.log('asd ', res);
+            }
         }
         getProduct()
-      }, [])
+    }, [])
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -34,13 +34,11 @@ const [product, setproduct] = useState([])
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%') }}>
-                    {product.length>0 && product.map((d, idx)=> {
-                        console.log('produk');
-                        console.log(d);
-                        return(
-                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
-                            id: `${d.idProduct}`,
-                        })}/>
+                    {product.length > 0 && product.map((d, idx) => {
+                        return (
+                            <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
+                                idProduct: `${d.idProduct}`, idMember: ''
+                            })} />
                         )
                     })}
                 </View>
@@ -53,12 +51,12 @@ const [product, setproduct] = useState([])
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: wp('85%') }}>
-                 {product.length>0 && product.map((d, idx)=> {
-                        console.log(d);
-                        return(
-                        <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
-                            idProduct: `${d.idProduct}`,idMember:''
-                        })}/>
+                    {product.length > 0 && product.map((d, idx) => {
+                        return (
+                            <CardItem key={idx} data={d} navigation={() => navigation.navigate('DetailProduk', {
+                                idProduct: `${d.idProduct}`, 
+                                idMember: ''
+                            })} />
                         )
                     })}
                 </View>
