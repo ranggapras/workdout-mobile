@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const RincianJadwal = ({ hari, tanggal, kuota }) => {
+const RincianJadwal = ({ hari, tanggal, kuota,data }) => {
     const [check, setCheck] = useState(false);
     const [jam, setJam] = useState();
 
@@ -37,9 +37,11 @@ const RincianJadwal = ({ hari, tanggal, kuota }) => {
                     onValueChange={(itemValue, itemIndex) =>
                         setJam(itemValue)
                     }>
-                    <Picker.Item label="8:30 - 9:30" value="8:30 - 9:30" />
-                    <Picker.Item label="9:30 - 10:30" value="9:30 - 10:30" />
-                    <Picker.Item label="10:30 - 11:30" value="10:30 - 11:30" />
+                {data.time.map((d,idx)=>{
+                    return(
+                        <Picker.Item key={idx} label={d} value={d} />
+                    )
+                } )}
                 </Picker>
             </View>
             <View style={{ width: 50, alignItems: 'center' }}>

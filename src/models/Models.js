@@ -333,6 +333,18 @@ const Models = {
         const res = await fetchItem.json();
         return res;
     },
+    async getScheduleByIdWorkout(idWorkout){
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/schedules/workout/${idWorkout}`,{
+            method:'GET',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
 }
 
     

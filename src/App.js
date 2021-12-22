@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Router from './router/index';
 import { LogBox } from 'react-native'
-
+import moment from 'moment'
+import momentID from 'moment/src/locale/id' 
 const MyTheme = {
   colors: {
     background: '#253334',
@@ -15,7 +16,7 @@ LogBox.ignoreLogs([
   `TypeError: destroy is not a function. (In 'destroy()', 'destroy' is an
   instance of Promise)`,
 ])
-
+moment.locale('id',momentID);
 const App = () => {
   return (
     <NavigationContainer theme={MyTheme}>

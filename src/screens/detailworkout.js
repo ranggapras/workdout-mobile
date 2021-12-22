@@ -4,6 +4,9 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import RincianJadwal from '../components/RincianJadwal';
 import Crown from '../assets/crown.png'
 import Foto from '../assets/trainer.png'
+import Models from '../models/Models'
+import moment from 'moment'
+import 'moment/locale/id' 
 
 const detailworkout = ({ route, navigation }) => {
     const thousand = val => (
@@ -11,21 +14,32 @@ const detailworkout = ({ route, navigation }) => {
       );
     
     const { information } = route.params;
-    const [schedule, setschedule] = useState(null)
-
+    const [schedule, setschedule] = useState([])
+    const { idWorkout,price,date } = route.params;
+    const [dataUser, setdataUser] = useState(null)
+    useEffect(() => {
+        const getProfil = async () => {
+          const res = await Models.getProfil();
+          if (res.code != '200') {
+            // alert(`${res}`);
+          } else {
+           setdataUser(res)
+          }
+        }
+        getProfil()
+      }, [])
     useEffect( () => {
-        const getSchedule = async () => {
-          const res = await Models.getSchedule();
-          console.log(res);
+        const getScheduleByIdWorkout = async () => {
+          const res = await Models.getScheduleByIdWorkout(idWorkout);
           if (res.code != '200') {
             // alert(`${res}`);
           } else {
            setschedule(res.data)
-           console.log(res);
+           console.log(res.data);
           }
         }
-        getSchedule()
-      }, [])
+        getScheduleByIdWorkout()
+      }, [idWorkout])
 
     const PersonTrainer = () => {
         if (information == '') {
@@ -88,7 +102,7 @@ const detailworkout = ({ route, navigation }) => {
                         fontSize: 18,
                         marginRight: 5
                     }}>Sisa PT : </Text>
-                    <Text style={styles.teks}>-</Text>
+                    <Text style={styles.teks}>{`${dataUser === null ? '' :(dataUser.data.sessionLeft)}`}</Text>
                 </View>
             </View>
         }
@@ -166,7 +180,7 @@ const detailworkout = ({ route, navigation }) => {
                     fontSize: 18,
                     marginRight: 5
                 }}>Sisa PT : </Text>
-                <Text style={styles.teks}>4/5</Text>
+                <Text style={styles.teks}></Text>
             </View>
         </View>
     }
@@ -184,13 +198,13 @@ const detailworkout = ({ route, navigation }) => {
                         color: '#fff',
                         fontSize: 24,
                         fontWeight: '700'
-                    }}>1 - 6 November 2021</Text>
+                    }}>{date}</Text>
                     <Text style={{
                         color: '#F43636',
                         fontWeight: '700',
                         fontSize: 20,
                         marginTop: 10
-                    }}>Rp. 40.000</Text>
+                    }}>Rp{thousand(price)}</Text>
                 </View>
                 <View style={{
                     paddingVertical: 20,
@@ -223,31 +237,14 @@ const detailworkout = ({ route, navigation }) => {
                     </View>
                     <Text style={styles.teks}>Kuota</Text>
                 </View>
-
-                <RincianJadwal
-                    hari={'Senin'}
-                    tanggal={'1 Nov 2021'}
-                    kuota={6} />
-                <RincianJadwal
-                    hari={'Selasa'}
-                    tanggal={'2 Nov 2021'}
-                    kuota={15} />
-                <RincianJadwal
-                    hari={'Rabu'}
-                    tanggal={'3 Nov 2021'}
-                    kuota={4} />
-                <RincianJadwal
-                    hari={'Kamis'}
-                    tanggal={'4 Nov 2021'}
-                    kuota={0} />
-                <RincianJadwal
-                    hari={'Jumat'}
-                    tanggal={'5 Nov 2021'}
-                    kuota={9} />
-                <RincianJadwal
-                    hari={'Sabtu'}
-                    tanggal={'6 Nov 2021'}
-                    kuota={1} />
+                        {schedule.length > 0 && schedule.map((d, idx) => {
+                        return (
+                            <RincianJadwal key = {idx} data={d}
+                            hari={moment(d.date).format('dddd')}
+                            tanggal={moment(d.date).format('DD MMMM YYYY')}
+                            kuota={d.quota} />
+                        )
+                    })}
 
                 <PersonTrainer />
             </ScrollView>

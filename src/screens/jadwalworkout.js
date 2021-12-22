@@ -51,7 +51,7 @@ const [workout, setworkout] = useState([])
                             tanggal={d.name}
                             harga={thousand(d.price ||  '0')}
                             navigation={() => navigation.navigate('DetailWorkout', {
-                                information: '',
+                                information: '', idWorkout:`${d.idWorkout}`,price:`${d.price}`,date:`${d.name}`,
                             })} />
                         )
                     })}
