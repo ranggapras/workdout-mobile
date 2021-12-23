@@ -13,7 +13,7 @@ const thousand = val => (
 const jadwalworkout = ({ navigation }) => {
 const [workout, setworkout] = useState([])
 
-    useEffect(async () => {
+    useEffect(() => {
         const getWorkout = async () => {
           const res = await Models.getWorkout();
           console.log(res);

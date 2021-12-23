@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const RincianJadwal = ({ hari, tanggal, kuota, data, change, active }) => {
-    const [check, setCheck] = useState(false);
-    const [jam, setJam] = useState();
+const RincianJadwal = ({ hari, tanggal, kuota, data, change, active, pilihJam }) => {
+    const [jam, setJam] = useState('');
+
+    console.log(jam)
+
+    const press = () => {
+        change(data.idSchedule);
+        pilihJam(jam);
+    }
 
     return (
         <View style={{
@@ -47,7 +53,7 @@ const RincianJadwal = ({ hari, tanggal, kuota, data, change, active }) => {
             <View style={{ width: 50, alignItems: 'center' }}>
                 <Text style={styles.teks}>{kuota}</Text>
             </View>
-            <TouchableOpacity onPress={() => change(data.idSchedule)}>
+            <TouchableOpacity onPress={press}>
                 <View style={{
                     width: 25,
                     height: 25,

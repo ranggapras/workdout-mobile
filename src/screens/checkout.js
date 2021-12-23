@@ -6,16 +6,19 @@ import Mp from '../assets/mp.svg'
 import Kirim from '../assets/buttonPengiriman.svg'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Models from '../models/Models';
+import moment from 'moment'
+import 'moment/locale/id'
 
 const Checkout = ({ route, navigation }) => {
-    const { broadcast, idMember, idProduct, idJadwal, ongkir, potOngkir, potDiskon } = route.params;
+    const { broadcast, idMember, idProduct, idJadwal, ongkir, potOngkir, potDiskon, jam, hargaJadwal } = route.params;
     const [product, setproduct] = useState([])
     const [member, setmember] = useState(null)
     const [jadwal, setjadwal] = useState(null)
     const [hargaPesanan, setHargaPesanan] = useState('')
 
     console.log(idJadwal)
-    console.log(jadwal)
+    // console.log(jadwal)
+    console.log(jam)
 
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
@@ -35,7 +38,7 @@ const Checkout = ({ route, navigation }) => {
             setHargaPesanan(product.price)
         }
         if (broadcast === 'jadwal') {
-            setHargaPesanan(product.price)
+            setHargaPesanan(hargaJadwal)
         }
     }, [broadcast, member, product])
 
@@ -68,11 +71,11 @@ const Checkout = ({ route, navigation }) => {
     useEffect(() => {
         const getScheduleById = async () => {
             const res = await Models.getScheduleById(idJadwal);
-            console.log(res);
-            if (res.code != '200') {
+            // console.log(res);
+            if (res.code != '201') {
                 // alert(`${res}`);
             } else {
-                setjadwal(res)
+                setjadwal(res.data)
             }
         }
         getScheduleById()
@@ -88,13 +91,13 @@ const Checkout = ({ route, navigation }) => {
                 borderColor: '#58B4A7'
             }}>
                 <Text style={styles.checkOut}>Jadwal Gym</Text>
-                <Text style={styles.checkOut}>Senin 1 Nov 2021</Text>
-                <Text style={styles.checkOut}>8:30 - 9:30</Text>
+                <Text style={styles.checkOut}>{`${jadwal === null ? '' : moment(jadwal.date).format('dddd')} ${jadwal === null ? '' : moment(jadwal.date).format('DD MMMM YYYY')}`}</Text>
+                <Text style={styles.checkOut}>{`${jam === '' ? '08.30-09.30' : jam}`}</Text>
                 <Text style={{
                     color: '#4CE6D4',
                     marginTop: 20,
                     fontSize: 24,
-                }}>Rp. 40.000</Text>
+                }}>Rp. {thousand(hargaJadwal || '0')}</Text>
             </View>
         }
         if (broadcast === 'produk-beliSekarang') {
@@ -210,7 +213,9 @@ const Checkout = ({ route, navigation }) => {
                     </View>
                     <TouchableOpacity onPress={() => navigation.navigate('Voucher', {
                         broadcast: broadcast,
-                        ongkir: ongkir
+                        ongkir: ongkir,
+                        jam: jam,
+                        hargaJadwal: hargaJadwal
                     })}>
                         <Text style={{
                             color: '#fff',

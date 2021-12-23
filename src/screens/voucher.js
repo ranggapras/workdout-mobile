@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Models from '../models/Models';
 
 const voucher = ({ route, navigation }) => {
-    const { broadcast, ongkir } = route.params;
+    const { broadcast, ongkir, jam, hargaJadwal } = route.params;
     const [diskon, setDiskon] = useState('');
     const [voucher, setVoucher] = useState([]);
     const [potongan, setPotongan] = useState([]);
@@ -81,9 +81,12 @@ const voucher = ({ route, navigation }) => {
                     broadcast: broadcast,
                     idProduct: '',
                     idMember: '',
+                    idJadwal: '',
                     ongkir: ongkir,
                     potOngkir: `${typePotongan === 3 ? jumlahPotongan : ''}`,
-                    potDiskon: `${typePotongan !== 3 ? jumlahPotongan : ''}`
+                    potDiskon: `${typePotongan !== 3 ? jumlahPotongan : ''}`,
+                    jam: jam,
+                    hargaJadwal: hargaJadwal
                 })}>
                 <View style={{
                     width: wp('100%'),

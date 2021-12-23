@@ -17,6 +17,7 @@ const detailworkout = ({ route, navigation }) => {
     const [schedule, setschedule] = useState([])
     const [dataUser, setdataUser] = useState(null)
     const [chekoutSchedule, setCheckoutSchedule] = useState('');
+    const [jamCheckout, setJamCheckout] = useState('');
 
     useEffect(() => {
         const getProfil = async () => {
@@ -205,7 +206,7 @@ const detailworkout = ({ route, navigation }) => {
                         fontWeight: '700',
                         fontSize: 20,
                         marginTop: 10
-                    }}>Rp{thousand(price)}</Text>
+                    }}>Rp {thousand(price)}</Text>
                 </View>
                 <View style={{
                     paddingVertical: 20,
@@ -238,14 +239,17 @@ const detailworkout = ({ route, navigation }) => {
                     </View>
                     <Text style={styles.teks}>Kuota</Text>
                 </View>
+
                 {schedule.length > 0 && schedule.map((d, idx) => {
                     return (
-                        <RincianJadwal key={idx} data={d}
+                        <RincianJadwal key={idx}
+                            data={d}
                             hari={moment(d.date).format('dddd')}
                             tanggal={moment(d.date).format('DD MMMM YYYY')}
-                            kuota={d.quota} 
-                            active={chekoutSchedule === d.idSchedule ? true : false} 
-                            change={setCheckoutSchedule}/>
+                            kuota={d.quota}
+                            active={chekoutSchedule === d.idSchedule ? true : false}
+                            change={setCheckoutSchedule}
+                            pilihJam={setJamCheckout} />
                     )
                 })}
 
@@ -258,7 +262,9 @@ const detailworkout = ({ route, navigation }) => {
                     idProduct: '',
                     idMember: '',
                     ongkir: '',
-                    idJadwal: chekoutSchedule
+                    idJadwal: chekoutSchedule,
+                    jam: jamCheckout,
+                    hargaJadwal: price
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Pesan Sekarang</Text>
