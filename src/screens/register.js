@@ -14,10 +14,31 @@ import {
   Divider,
   Image
 } from 'native-base';
-
+import { useEffect,useState } from 'react';
+import Models from '../models/Models';    
 import React from 'react'
 
 const register = ({ navigation }) => {
+  const [username, setusername] = useState('')
+  const [email, setemail] = useState('')
+  const [notelp, setnotelp] = useState('')
+  const [password, setpassword] = useState('')
+
+  const registerReq = async () => {
+    const dat = { nameUser:username, email: email, phoneNumber: notelp, password: password };
+    if (username === '' || email === ''|| notelp === ''|| password === '') {
+      return alert('Data harus diisi !!!');
+    }
+
+    const res = await Models.register(dat);
+    console.log(res);
+    if (res.code != '201') {
+      alert(`${res.message}`);
+      return true;
+    } else {
+      return navigation.navigate('Login');
+    }
+  };
   return (
     <NativeBaseProvider>
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="center">
@@ -37,7 +58,8 @@ const register = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color='white' />
+            <Input placeholder="Nama User" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color='white'
+            onChangeText={setusername} />
           </FormControl>
           <FormControl>
             <FormControl.Label
@@ -47,7 +69,8 @@ const register = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input placeholder="Email" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
+            <Input placeholder="Email" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+            onChangeText={setemail} />
             <FormControl.Label
               _text={{
                 color: 'coolGray.800',
@@ -55,7 +78,8 @@ const register = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input placeholder="No. Telepon" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
+            <Input placeholder="No. Telepon" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+            onChangeText={setnotelp} />
             <FormControl.Label
               _text={{
                 color: 'coolGray.800',
@@ -63,7 +87,8 @@ const register = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
+            <Input type="password" placeholder="Kata Sandi" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+            onChangeText={setpassword} />
             <FormControl.Label
               _text={{
                 color: 'coolGray.800',
@@ -71,10 +96,10 @@ const register = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input type="password" placeholder="Konfirmasi Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
+            <Input type="password" placeholder="Konfirmasi Kata Sandi" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white" />
           </FormControl>
           <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white' }} w='321' h='61'
-            onPress={() => navigation.navigate("Login")}>
+            onPress={registerReq}>
             Daftar
           </Button>
           <HStack mt="6" justifyContent="center">

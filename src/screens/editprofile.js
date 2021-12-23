@@ -25,29 +25,18 @@ import { useState, useEffect } from 'react';
 
 const editprofile = ({ navigation }) => {
   const [dataUser, setdataUser] = useState(null)
-  // const [edituser, setedituser] = useState(null)
 
-  const simpan = async () => {
-    const dat = { email: email, password: password };
-    if (email === '' || password === '') {
-      return alert('Data harus diisi !!!');
-    }
 
-    const res = await Models.login(dat);
+  const updateProfil = async () => {
+    const res = await Models.updateProfil(dataUser);
+    console.log(res);
     if (res.code != '200') {
       alert(`${res.message}`);
       return true;
     } else {
-      const dataLokal = {
-        token: res.accessToken
-      };
-      const userData = JSON.parse(atob(res.accessToken.split('.')[1]))
-      storeToken(dataLokal);
-      storeData(userData);
-      return navigation.navigate('App');
+      return navigation.navigate('Beranda');
     }
   };
-
 
   useEffect(() => {
     const getProfil = async () => {
@@ -92,7 +81,7 @@ const editprofile = ({ navigation }) => {
             } pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' value={`${dataUser === null ? '' : dataUser.address}`} />
             <Box w='100%' flexDirection='row' justifyContent='flex-end'>
               <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white', fontSize: 18 }} w='160' h='39' borderRadius='10'
-                onPress={() => navigation.navigate("Profile")}>
+                onPress={updateProfil}>
                 Simpan
               </Button>
             </Box>
