@@ -37,6 +37,7 @@ const Models = {
         return res;
     },
     async register(data){
+        console.log(data);
         const fetchItem = await fetch(`http://47.241.214.211:3000/api/register`,{
             method:'POST',
             headers:{
@@ -44,13 +45,13 @@ const Models = {
                 'Authorization':'Basic YWRtaW5Ad29ya2RvdXQuY29tOndvcmtkb3V0'
             },
             body: JSON.stringify({
-                nameUser : data.user, 
+                nameUser : data.nameUser, 
                 password : data.password, 
                 email : data.email, 
-                phoneNumber: data.phonenumber, 
-                gender: data.gender, 
-                dob: data.dob, 
-                address: data.address
+                phoneNumber: data.phoneNumber, 
+                gender: '', 
+                dob: '2000-01-01', 
+                address: ''
             })
         })
         const res = await fetchItem.json();
@@ -69,7 +70,8 @@ const Models = {
         const res = await fetchItem.json();
         return res;
     },
-    async updateProfil(){
+    async updateProfil(data){
+        console.log(data);
         const token = await AsyncStorage.getItem('token')
         const user = await AsyncStorage.getItem('user')
         const fetchItem = await fetch(`http://47.241.214.211:3000/api/user/${JSON.parse(user).id}`,{
@@ -79,10 +81,11 @@ const Models = {
                 'Authorization':`Bearer ${JSON.parse(token).token}`
             },
             body: JSON.stringify({
-                nameUser : data.user, 
-                password : data.password, 
+                nameUser : data.nameUser, 
+                address : data.address, 
                 email : data.email, 
-                phoneNumber: data.phonenumber, 
+                phoneNumber: data.phoneNumber, 
+                photo: data.photo
             })
         })
         const res = await fetchItem.json();

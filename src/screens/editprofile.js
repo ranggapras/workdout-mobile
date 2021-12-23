@@ -26,31 +26,17 @@ import { useState, useEffect } from 'react';
 const editprofile = ({ navigation }) => {
   const [dataUser, setdataUser] = useState(null)
 
-  console.log(dataUser)
-  // const [edituser, setedituser] = useState(null)
 
-  const simpan = () => {
-    // const dat = { dataUser: dataUser, password: password };
-    // if (email === '' || password === '') {
-    //   return alert('Data harus diisi !!!');
-    // }
-
-    // const res = await Models.login(dat);
-    // if (res.code != '200') {
-    //   alert(`${res.message}`);
-    //   return true;
-    // } else {
-    //   const dataLokal = {
-    //     token: res.accessToken
-    //   };
-    //   const userData = JSON.parse(atob(res.accessToken.split('.')[1]))
-    //   storeToken(dataLokal);
-    //   storeData(userData);
-    //   navigation.navigate('Beranda');
-    // }
-    navigation.navigate('Beranda');
+  const updateProfil = async () => {
+    const res = await Models.updateProfil(dataUser);
+    console.log(res);
+    if (res.code != '200') {
+      alert(`${res.message}`);
+      return true;
+    } else {
+      return navigation.navigate('Beranda');
+    }
   };
-
 
   useEffect(() => {
     const getProfil = async () => {
@@ -74,7 +60,7 @@ const editprofile = ({ navigation }) => {
             </TouchableOpacity>
           </Box>
           <Box alignItems='center' marginTop='10'>
-            <Image source={dataUser === null ? ProfilePicture : {uri: dataUser.photo}} style={{ width: 150, height: 150, borderRadius: 100 }} />
+            <Image source={dataUser === null ? ProfilePicture : { uri: dataUser.photo }} style={{ width: 150, height: 150, borderRadius: 100 }} />
             <Text mt='6' color='white' fontWeight='bold' fontSize='30'>{`${dataUser === null ? '' : dataUser.nameUser}`}</Text>
             <Text mt='6' pb='4' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="2" color='white' textAlign='center'>Profil</Text>
           </Box>
@@ -93,7 +79,7 @@ const editprofile = ({ navigation }) => {
             } pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' value={`${dataUser === null ? '' : dataUser.address}`} />
             <Box w='100%' flexDirection='row' justifyContent='flex-end'>
               <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white', fontSize: 18 }} w='160' h='39' borderRadius='10'
-                onPress={simpan}>
+                onPress={updateProfil}>
                 Simpan
               </Button>
             </Box>

@@ -68,7 +68,7 @@ const Checkout = ({ route, navigation }) => {
     useEffect(() => {
         const getProductById = async () => {
             const res = await Models.getProductById(idProduct);
-            // console.log(res);
+            console.log(res);
             if (res.code != '200') {
                 // alert(`${res}`);
             } else {
