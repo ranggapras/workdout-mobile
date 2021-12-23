@@ -23,6 +23,9 @@ import { useEffect, useState } from 'react';
 import Models from '../models/Models';
 const profile = ({ navigation }) => {
   const [dataUser, setdataUser] = useState(null)
+  const memberCheck = dataUser.isMember
+
+  console.log(memberCheck)
 
   const press = () => {
     BackHandler.exitApp()

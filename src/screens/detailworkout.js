@@ -16,8 +16,10 @@ const detailworkout = ({ route, navigation }) => {
     const { information, idWorkout, price, date } = route.params;
     const [schedule, setschedule] = useState([])
     const [dataUser, setdataUser] = useState(null)
+    const [isMember, setIsMember] = useState(false)
     const [chekoutSchedule, setCheckoutSchedule] = useState('');
     const [jamCheckout, setJamCheckout] = useState('');
+    console.log(dataUser);
 
     useEffect(() => {
         const getProfil = async () => {
@@ -26,10 +28,12 @@ const detailworkout = ({ route, navigation }) => {
                 // alert(`${res}`);
             } else {
                 setdataUser(res)
+                setIsMember(res.data.isMember)
             }
         }
         getProfil()
     }, [])
+
     useEffect(() => {
         const getScheduleByIdWorkout = async () => {
             const res = await Models.getScheduleByIdWorkout(idWorkout);
@@ -37,7 +41,6 @@ const detailworkout = ({ route, navigation }) => {
                 // alert(`${res}`);
             } else {
                 setschedule(res.data)
-                console.log(res.data);
             }
         }
         getScheduleByIdWorkout()
@@ -61,12 +64,13 @@ const detailworkout = ({ route, navigation }) => {
                     alignItems: 'center',
                     justifyContent: 'space-evenly'
                 }}
-                    onPress={() => navigation.navigate('PersonalTrainer')}>
+                    onPress={isMember ? () => navigation.navigate('PersonalTrainer') : () => navigation.navigate('Membership')}>
                     <Image source={Crown} style={{
                         position: 'absolute',
                         top: -30,
                         left: 0,
-                        width: 45
+                        width: 45,
+                        display: isMember ? 'none' : 'flex'
                     }} />
                     <Text style={{
                         color: '#253334',
@@ -206,7 +210,7 @@ const detailworkout = ({ route, navigation }) => {
                         fontWeight: '700',
                         fontSize: 20,
                         marginTop: 10
-                    }}>Rp {thousand(price)}</Text>
+                    }}>{isMember ? `Gratis` : `Rp ${thousand(price)}`}</Text>
                 </View>
                 <View style={{
                     paddingVertical: 20,
@@ -257,19 +261,21 @@ const detailworkout = ({ route, navigation }) => {
             </ScrollView>
 
             <View style={styles.ContainerCheckout}>
-                <TouchableOpacity onPress={() => navigation.navigate('Checkout', {
-                    broadcast: 'jadwal',
-                    idProduct: '',
-                    idMember: '',
-                    ongkir: '',
-                    idJadwal: chekoutSchedule,
-                    jam: jamCheckout,
-                    hargaJadwal: price
-                })}>
+                <TouchableOpacity
+                    onPress={isMember ? () => navigation.navigate('PesananSelesai') : () => navigation.navigate('Checkout', {
+                        broadcast: 'jadwal',
+                        idProduct: '',
+                        idMember: '',
+                        ongkir: '',
+                        idJadwal: chekoutSchedule,
+                        jam: jamCheckout,
+                        hargaJadwal: price
+                    })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Pesan Sekarang</Text>
                     </View>
                 </TouchableOpacity>
+
             </View>
         </View>
     )

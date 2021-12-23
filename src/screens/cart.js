@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import CartItem from '../components/CartItem';
 import Voucher from '../assets/Voucher.png'
@@ -10,28 +10,30 @@ import Models from '../models/Models';
 const Cart = ({ navigation }) => {
     const [cart, setcart] = useState([])
     const [check, setCheck] = useState(false);
-    useEffect( () => {
+    const [pilihcart, setPilihcart] = useState([]);
+
+    console.log(pilihcart)
+
+    useEffect(() => {
         const getCart = async () => {
-          const res = await Models.getCart();
-          console.log(res);
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-            setcart(res.data)
-           console.log('asd ',res);
-          }
+            const res = await Models.getCart();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setcart(res.data)
+            }
         }
         getCart()
-      }, [])
+    }, [])
     return (
         <View style={{ flex: 1, flexDirection: 'column' }}>
             <ScrollView>
-            {cart.length>0 && cart.map((d, idx)=> {
-                        console.log(d);
-                        return(
-                        <CartItem key={idx} data={d} />
-                        )
-                    })}
+                {cart.length > 0 && cart.map((d, idx) => {
+                    console.log(d);
+                    return (
+                        <CartItem key={idx} data={d} active={pilihcart} change={setPilihcart} />
+                    )
+                })}
             </ScrollView>
             <View style={styles.ContainerVoucher}>
                 <View style={{
@@ -56,7 +58,8 @@ const Cart = ({ navigation }) => {
                     broadcast: 'produk-keranjang',
                     idProduct: '',
                     idMember: '',
-                    ongkir: ''
+                    ongkir: '',
+                    idCart: pilihcart
                 })}>
                     <View style={styles.BoxCheckout}>
                         <Text style={styles.checkOut}>Checkout(1)</Text>

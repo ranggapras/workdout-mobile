@@ -8,24 +8,35 @@ import { useEffect, useState } from 'react'
 
 const thousand = val => (
     val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-  );
+);
 
 const jadwalworkout = ({ navigation }) => {
-const [workout, setworkout] = useState([])
+    const [workout, setworkout] = useState([])
+    const [isMember, setIsMember] = useState(false)
+    
+    useEffect(() => {
+        const getProfil = async () => {
+            const res = await Models.getProfil();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setIsMember(res.data.isMember)
+            }
+        }
+        getProfil()
+    }, [])
 
     useEffect(() => {
         const getWorkout = async () => {
-          const res = await Models.getWorkout();
-          console.log(res);
-          if (res.code != '200') {
-            // alert(`${res}`);
-          } else {
-           setworkout(res.data)
-           console.log(res);
-          }
+            const res = await Models.getWorkout();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setworkout(res.data)
+            }
         }
         getWorkout()
-      }, [])
+    }, [])
 
     return (
         <View style={{ flex: 1, paddingHorizontal: 20 }}>
@@ -44,18 +55,18 @@ const [workout, setworkout] = useState([])
                     width: wp('90%'),
                     alignSelf: 'center'
                 }}>
-                      {workout.length>0 && workout.map((d, idx)=> {
+                    {workout.length > 0 && workout.map((d, idx) => {
                         console.log(d);
-                        return(
+                        return (
                             <JadwalItem key={idx}
-                            tanggal={d.name}
-                            harga={thousand(d.price ||  '0')}
-                            navigation={() => navigation.navigate('DetailWorkout', {
-                                information: '', idWorkout:`${d.idWorkout}`,price:`${d.price}`,date:`${d.name}`,
-                            })} />
+                                tanggal={d.name}
+                                harga={thousand(d.price || '0')}
+                                navigation={() => navigation.navigate('DetailWorkout', {
+                                    information: '', idWorkout: `${d.idWorkout}`, price: `${d.price}`, date: `${d.name}`,
+                                })} />
                         )
                     })}
-                    
+
                 </View>
             </ScrollView>
         </View>
