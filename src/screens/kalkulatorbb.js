@@ -29,7 +29,7 @@ const kalkulatorbb = ({ navigation }) => {
 
   const [beratBadan, setBeratBadan] = useState('')
   const [tinggiBadan, setTinggiBadan] = useState('')
-  const [hitungtotal, sethitungtotal] = useState('')
+  const [hitungtotal, sethitungtotal] = useState(0)
   
 
   const onChangebb = (text) => {
