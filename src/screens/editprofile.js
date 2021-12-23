@@ -26,10 +26,28 @@ import { useState, useEffect } from 'react';
 const editprofile = ({ navigation }) => {
   const [dataUser, setdataUser] = useState(null)
   // const [edituser, setedituser] = useState(null)
-  const simpan = () => {
-    // navigation.navigate("Profile");
-    // const response = await Models.updateProfil(res)
-  }
+
+  const simpan = async () => {
+    const dat = { email: email, password: password };
+    if (email === '' || password === '') {
+      return alert('Data harus diisi !!!');
+    }
+
+    const res = await Models.login(dat);
+    if (res.code != '200') {
+      alert(`${res.message}`);
+      return true;
+    } else {
+      const dataLokal = {
+        token: res.accessToken
+      };
+      const userData = JSON.parse(atob(res.accessToken.split('.')[1]))
+      storeToken(dataLokal);
+      storeData(userData);
+      return navigation.navigate('App');
+    }
+  };
+
 
   useEffect(() => {
     const getProfil = async () => {

@@ -63,8 +63,9 @@ const notification = () => {
                     marginVertical: 20,
                     marginLeft: 20
                 }}>Status Pesanan</Text>
-
-                <View style={styles.container2}>
+                {notif.map((d,idx)=> {
+                   return(
+                    <View key={idx} style={styles.container2}>
                     <Image source={Gambar1} style={styles.gambar} />
                     <View style={styles.containerteks2}>
                         <Text style={styles.judul2}>Pembayaran Dikonfirmasi</Text>
@@ -72,6 +73,10 @@ const notification = () => {
                         <Text>28-09-2021     11.15</Text>
                     </View>
                 </View>
+                   )
+               })}
+
+                
                 <View style={styles.container2}>
                     <Image source={Gambar2} style={styles.gambar} />
                     <View style={styles.containerteks2}>
