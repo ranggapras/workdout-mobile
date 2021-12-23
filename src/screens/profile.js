@@ -15,14 +15,16 @@ import {
 } from 'native-base';
 
 import React from 'react'
-import { TouchableOpacity, BackHandler, Image, ScrollView } from 'react-native';
+import { TouchableOpacity, BackHandler, Image, ScrollView, View } from 'react-native';
 import { fontSize, width } from 'styled-system';
 import ProfilePicture from '../assets/default.png'
+import Crown from '../assets/crown.png'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState } from 'react';
 import Models from '../models/Models';
 const profile = ({ navigation }) => {
   const [dataUser, setdataUser] = useState(null)
+  const [isMember, setIsMember] = useState(false)
 
   const press = () => {
     BackHandler.exitApp()
@@ -36,6 +38,7 @@ const profile = ({ navigation }) => {
         // alert(`${res}`);
       } else {
         setdataUser(res.data)
+        setIsMember(res.data.isMember)
       }
     }
     getProfil()
@@ -46,7 +49,19 @@ const profile = ({ navigation }) => {
       <ScrollView>
         <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
           <Box alignItems='center' mt='1'>
-            <Image source={dataUser === null ? ProfilePicture : {uri: dataUser.photo}} style={{ width: 150, height: 150, borderRadius: 100 }} />
+            <View style={{ position: 'relative' }}>
+              <Image source={Crown} style={{
+                position: 'absolute',
+                bottom: 10,
+                left: 25,
+                zIndex: 10,
+                width: 45,
+                display: isMember ? 'flex' : 'none'
+              }} />
+              <Image
+                source={dataUser === null ? ProfilePicture : { uri: dataUser.photo }}
+                style={{ width: 150, height: 150, borderRadius: 100 }} />
+            </View>
             <Text mt='6' color='white' fontWeight='bold' fontSize='30'>{`${dataUser === null ? '' : dataUser.nameUser}`}</Text>
             <Text mt='6' pb='4' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="2" color='white' textAlign='center'>Profil</Text>
           </Box>

@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import Calendar from '../assets/calendar-workout.png'
+import Models from '../models/Models';
 
 const JadwalItem = ({ tanggal, bulan, tahun, harga, navigation, }) => {
+    const [dataUser, setdataUser] = useState(null)
+    const [isMember, setIsMember] = useState(false)
+
+    useEffect(() => {
+        const getProfil = async () => {
+            const res = await Models.getProfil();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setdataUser(res.data)
+                setIsMember(res.data.isMember)
+            }
+        }
+        getProfil()
+    }, [])
+
     return (
         <TouchableOpacity onPress={navigation}>
             <View style={styles.card}>
@@ -10,8 +27,11 @@ const JadwalItem = ({ tanggal, bulan, tahun, harga, navigation, }) => {
                     <Image source={Calendar} />
                 </View>
                 <Text style={styles.text}> {tanggal} </Text>
-                {/* <Text style={styles.text}> {bulan} {tahun} </Text> */}
-                <Text style={styles.harga}> Rp {harga} </Text>
+                {isMember ?
+                    <Text style={styles.gratis}> gratis </Text> :
+                    <Text style={styles.harga}> Rp {harga} </Text>}
+
+
             </View>
         </TouchableOpacity>
     )
@@ -43,10 +63,15 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 18,
         fontWeight: '700',
-        textAlign:'center'
+        textAlign: 'center'
     },
     harga: {
         color: '#7e7e7e',
+        fontSize: 17,
+        fontWeight: '700'
+    },
+    gratis: {
+        color: 'red',
         fontSize: 17,
         fontWeight: '700'
     }

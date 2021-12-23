@@ -10,15 +10,13 @@ import moment from 'moment'
 import 'moment/locale/id'
 
 const Checkout = ({ route, navigation }) => {
-    const { broadcast, idMember, idProduct, idJadwal, ongkir, potOngkir, potDiskon, jam, hargaJadwal } = route.params;
+    const { broadcast, idMember, idProduct, idCart, idJadwal, ongkir, potOngkir, potDiskon, jam, hargaJadwal } = route.params;
     const [product, setproduct] = useState([])
     const [member, setmember] = useState(null)
     const [jadwal, setjadwal] = useState(null)
+    const [cart, setcart] = useState([])
+    const [isMember, setIsMember] = useState(false)
     const [hargaPesanan, setHargaPesanan] = useState('')
-
-    console.log(idJadwal)
-    // console.log(jadwal)
-    console.log(jam)
 
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
@@ -41,6 +39,18 @@ const Checkout = ({ route, navigation }) => {
             setHargaPesanan(hargaJadwal)
         }
     }, [broadcast, member, product])
+
+    useEffect(() => {
+        const getProfil = async () => {
+            const res = await Models.getProfil();
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setIsMember(res.data.isMember)
+            }
+        }
+        getProfil()
+    }, [])
 
     useEffect(() => {
         const getMembershipProductById = async () => {
@@ -80,7 +90,20 @@ const Checkout = ({ route, navigation }) => {
         }
         getScheduleById()
     }, [idJadwal])
-    
+
+    useEffect(() => {
+        const getCart = async () => {
+            const res = await Models.getCart();
+            // console.log(res.data.idCart);
+            if (res.code != '200') {
+                // alert(`${res}`);
+            } else {
+                setcart(res.data)
+            }
+        }
+        getCart()
+    }, [])
+
     const CheckoutProduct = () => {
         if (broadcast === 'jadwal') {
             return <View style={{
@@ -132,7 +155,7 @@ const Checkout = ({ route, navigation }) => {
                 <View style={styles.containerCart}>
                     <Image source={Gambar} style={{ width: 80, height: 80 }} />
                     <View style={{ flexDirection: 'column', height: 60, justifyContent: 'space-between' }}>
-                        <Text style={styles.Judul}>Matras Anti Slip</Text>
+                        <Text style={styles.Judul}>{`${cart === null ? '' : cart.name}`}</Text>
                         <Text style={styles.Harga}>Rp 55.000</Text>
                     </View>
                     <Text style={styles.Jumlah}>x1</Text>

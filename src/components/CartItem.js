@@ -6,13 +6,13 @@ import Gambar from '../assets/Produk.png'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const CartItem = ({data}) => {
+const CartItem = ({ data, change, active }) => {
     const [click, setClick] = useState(1);
-    const [stock, setStock] = useState(5);
+    const [stock, setStock] = useState(data.stock);
     const [check, setCheck] = useState(false);
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-      );
+    );
     const PressedPlus = () => {
         if (stock <= 0) {
             return;
@@ -31,14 +31,19 @@ const CartItem = ({data}) => {
         }
     };
 
+    const press = () => {
+        change(data.idCart)
+        setCheck(!check)
+    }
+
     return (
         <View style={styles.containerCart}>
-            <TouchableOpacity onPress={() => setCheck(!check)}>
+            <TouchableOpacity onPress={press}>
                 <Image source={check ? Done : Clear} />
             </TouchableOpacity>
-            <Image source={{uri:data.photo}} style={{ width: 80, height: 80 }} />
+            <Image source={{ uri: data.photo }} style={{ width: 80, height: 80 }} />
             <View style={{ flexDirection: 'column', height: 110, justifyContent: 'space-between' }}>
-                <Text style={styles.Judul}>{data.description}</Text>
+                <Text style={styles.Judul}>{data.name}</Text>
                 <Text style={styles.Harga}>Rp{thousand(data.price)}</Text>
                 <View style={{ flexDirection: 'row', width: 230, alignItems: 'center', justifyContent: 'space-between' }}>
                     <View style={styles.ContainerButtonCart}>

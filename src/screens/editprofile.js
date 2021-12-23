@@ -41,13 +41,11 @@ const editprofile = ({ navigation }) => {
   useEffect(() => {
     const getProfil = async () => {
       const res = await Models.getProfil();
-      console.log(res);
       if (res.code != '200') {
         // alert(`${res}`);
       } else {
         setdataUser(res.data)
         //  setedituser(res)
-        console.log(res);
       }
     }
     getProfil()
@@ -62,7 +60,7 @@ const editprofile = ({ navigation }) => {
             </TouchableOpacity>
           </Box>
           <Box alignItems='center' marginTop='10'>
-            <Image source={dataUser === null ? ProfilePicture : {uri: dataUser.photo}} style={{ width: 150, height: 150, borderRadius: 100 }} />
+            <Image source={dataUser === null ? ProfilePicture : { uri: dataUser.photo }} style={{ width: 150, height: 150, borderRadius: 100 }} />
             <Text mt='6' color='white' fontWeight='bold' fontSize='30'>{`${dataUser === null ? '' : dataUser.nameUser}`}</Text>
             <Text mt='6' pb='4' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="2" color='white' textAlign='center'>Profil</Text>
           </Box>
