@@ -16,20 +16,34 @@ import {
   Select
 } from 'native-base';
 
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Picker } from '@react-native-picker/picker';
 import { TouchableOpacity, View } from 'react-native';
 import Back from '../assets/back.svg'
 import Laki from '../assets/lk.svg'
 import Perempuan from '../assets/pr.svg'
 import { fontSize } from 'styled-system';
-
+import Models from '../models/Models';
 
 const kalkulatorkalori = ({ navigation }) => {
   const [gender, setGender] = useState("")
   const [beratBadan, setBeratBadan] = useState('')
   const [umur, setUmur] = useState('')
   const [tinggiBadan, setTinggiBadan] = useState('')
+  const [activity, setActivity] = useState([])
+  const [kalori, setkalori] = useState(0)
+  
+  useEffect(() => {
+    const getActivity = async () => {
+      const res = await Models.getActivity();
+      if (res.code != '200') {
+        // alert(`${res}`);
+      } else {
+       setActivity(res.data)
+      }
+    }
+    getActivity()
+  }, [])
 
   const onChangebb = (text) => {
     setBeratBadan(text.replace(/[^0-9]/g, ''));
@@ -42,6 +56,22 @@ const kalkulatorkalori = ({ navigation }) => {
   }
   const [aktivitas, setAktivitas] = useState();
 
+  const hitungKalori = () => {
+
+  let age = parseFloat(umur);
+
+  let heightCM = parseFloat(tinggiBadan);
+
+  let weight = parseFloat(beratBadan);
+
+if(gender == "P") {
+  //females =  655.09 + 9.56 x (Weight in kg) + 1.84 x (Height in cm) - 4.67 x age   
+ setkalori(aktivitas + 655.09 + (9.56 * weight) + (1.84 * heightCM) - (4.67 * age));
+}  else {
+ setkalori(aktivitas + 66.47 + (13.75 * weight) + (5 * heightCM) - (6.75 * age));
+}
+navigation.navigate("Hasil",{kalori:kalori})
+  }
   return (
     <NativeBaseProvider >
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
@@ -119,13 +149,11 @@ const kalkulatorkalori = ({ navigation }) => {
                 onValueChange={(itemValue, itemIndex) =>
                   setAktivitas(itemValue)
                 }>
-                <Picker.Item label="Aerobik" value="aerobik" />
-                <Picker.Item label="Aktivitas Berat Lainnya" value="abl" />
-                <Picker.Item label="Aktivitas Sedang Lainnya" value="asl" />
-                <Picker.Item label="Aktivitas Ringan Lainnya" value="arl" />
-                <Picker.Item label="Aku Berjalan" value="as" />
-                <Picker.Item label="Tidak Berlari" value="sd" />
-                <Picker.Item label="Lalu kita bawa keliling kota" value="ds" />
+                  {activity.length > 0 && activity.map((d, idx) => {
+                        return (
+                          <Picker.Item key={idx} label={d.name} value={d.jumlahKalori} />
+                        )
+                    })}
               </Picker>
             </View>
           </FormControl>
@@ -135,7 +163,7 @@ const kalkulatorkalori = ({ navigation }) => {
               color: "black",
               fontSize: 20
             }}
-            onPress={() => navigation.navigate("Hasil")}>
+            onPress={() => hitungKalori() }>
             Hitung
           </Button>
         </Box>

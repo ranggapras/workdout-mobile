@@ -5,6 +5,7 @@ import Cart from '../assets/cart-green.svg'
 import Chat from '../assets/chat-green.svg'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Models from '../models/Models';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const thousand = val => (
     val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
@@ -13,10 +14,11 @@ const thousand = val => (
 const detailproduct = ({ route, navigation }) => {
     const { idProduct } = route.params;
     const [product, setproduct] = useState([])
+    const [amountItems, setamountItems] = useState(1)
+    const [addcart, setaddcart] = useState([])
 
-    console.log(product);
 
-    useEffect(async () => {
+    useEffect(() => {
         const getProductById = async () => {
             const res = await Models.getProductById(idProduct);
             // console.log(res);
@@ -30,6 +32,30 @@ const detailproduct = ({ route, navigation }) => {
         getProductById()
     }, [])
 
+    const beliSekarang = async (type) => {
+        const jsonValue = await AsyncStorage.getItem('user');
+        const idUser = await JSON.parse(jsonValue);   
+        const dat = { idUser:idUser.id, amountItems: amountItems, idProduct: idProduct};
+        const res = await Models.postCart(dat);
+        console.log(res);
+        if (res.code != '201') {
+          alert(`${res.message}`);
+          return true;
+        } else {
+          if(type === 'beli'){
+            return navigation.navigate('Checkout', {
+                broadcast: 'produk-beliSekarang',
+                        idProduct: idProduct,
+                        idMember: '', 
+                        ongkir: 5000,
+                        idCart: res.data.idCart
+                    }
+            );
+          } else {
+            alert('Produk Ditambahkan Ke Keranjang')
+          }
+        }
+      };
     return (
         <View style={{ flex: 1 }}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -60,7 +86,7 @@ const detailproduct = ({ route, navigation }) => {
                     justifyContent: 'center',
                     paddingVertical: 10
                 }}
-                    onPress={() => navigation.navigate('Keranjang')}>
+                    onPress={() => beliSekarang('Keranjang')}>
                     <Cart />
                 </TouchableOpacity>
                 <TouchableOpacity style={{
@@ -70,13 +96,7 @@ const detailproduct = ({ route, navigation }) => {
                     paddingVertical: 10,
                     backgroundColor: '#58B4A7'
                 }}
-                    onPress={() => navigation.navigate('Checkout', {
-                        broadcast: 'produk-beliSekarang',
-                        idProduct: idProduct,
-                        idMember: '', 
-                        ongkir: 5000
-
-                    })}>
+                    onPress={() => beliSekarang('beli')}>
                     <Text style={{ color: '#fff', fontSize: 24, fontWeight: '700' }}>Beli Sekarang</Text>
                 </TouchableOpacity>
             </View>

@@ -31,7 +31,7 @@ const pembayaran = () => {
                             fontWeight: '700',
                             fontSize: 18,
                             marginLeft: 10
-                        }}>Bayar Di Tempat Gym</Text>
+                        }}>Bayar Lewat Midtrans</Text>
                     </View>
                     <TouchableOpacity onPress={pressBayar}>
                         <View style={{

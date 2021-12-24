@@ -129,6 +129,7 @@ const Models = {
         return res;
     },
     async postCart(data){
+        console.log(data);
         const token = await AsyncStorage.getItem('token')
         const fetchItem = await fetch(`http://47.241.214.211:3000/api/cart`,{
             method:'POST',
@@ -137,7 +138,7 @@ const Models = {
                 'Authorization':`Bearer ${JSON.parse(token).token}`
             },body: JSON.stringify({
                 idUser : data.idUser, 
-                amountItem :data.amounItem,
+                amountItems :data.amountItems,
                 idProduct:data.idProduct
             })
         })
@@ -344,6 +345,24 @@ const Models = {
                 'content-type':'application/json',
                 'Authorization':`Bearer ${JSON.parse(token).token}`
             },
+        })
+        const res = await fetchItem.json();
+        return res;
+    },
+    async addTransactionProduct (data){
+        console.log(data);
+        const token = await AsyncStorage.getItem('token')
+        const fetchItem = await fetch(`http://47.241.214.211:3000/api/transaction/product`,{
+            method:'POST',
+            headers:{
+                'content-type':'application/json',
+                'Authorization':`Bearer ${JSON.parse(token).token}`
+            },body: JSON.stringify({
+                idCart : data.idCart, 
+                idPromo :'',
+                totalAmount:data.totalAmount,
+                name:data.nameUser
+            })
         })
         const res = await fetchItem.json();
         return res;

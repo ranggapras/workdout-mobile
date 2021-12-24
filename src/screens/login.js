@@ -102,7 +102,7 @@ const login = ({ navigation }) => {
                 fontWeight: 500,
               }}>
             </FormControl.Label>
-            <Input placeholder="Username" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+            <Input placeholder="Nama Pengguna" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
               onChangeText={setEmail}
               value={email}
             />
@@ -115,7 +115,7 @@ const login = ({ navigation }) => {
             }}>
           </FormControl.Label>
           <FormControl>
-            <Input type="password" placeholder="Password" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
+            <Input type="password" placeholder="Kata Sandi" borderWidth="0" borderColor="coolGray.600" borderBottomWidth="2" fontSize='md' color="white"
               onChangeText={setPassword}
               value={password}
             />

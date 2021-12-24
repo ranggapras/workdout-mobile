@@ -21,7 +21,8 @@ import { TouchableOpacity } from 'react-native';
 import { fontSize } from 'styled-system';
 import Back from '../assets/back.svg'
 
-const hasil = ({ navigation }) => {
+const hasil = ({ navigation,route }) => {
+const {kalori} = route.params
   return (
     <NativeBaseProvider >
       <Box safeArea flex={1} p="2" py="8" w="100%" mx="auto" backgroundColor="#253334" justifyContent="flex-start">
@@ -31,8 +32,8 @@ const hasil = ({ navigation }) => {
           </TouchableOpacity>
         </Box>
         <Image source={require('../assets/logo.png')} ml='4' size="sm" marginX="2" alt="logo" />
-        <Text color='white'>
-          Hasil kalori harian anda adalah....berapa hayo
+        <Text color='white' fontSize={30}>
+          Hasil kalori harian anda adalah {kalori} kkal
         </Text>
       </Box>
     </NativeBaseProvider>

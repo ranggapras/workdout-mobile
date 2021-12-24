@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Linking } from 'react-native'
 import Gambar from '../assets/Produk.png'
 import Voucher from '../assets/Voucher.png'
 import Mp from '../assets/mp.svg'
@@ -8,6 +8,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Models from '../models/Models';
 import moment from 'moment'
 import 'moment/locale/id'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Checkout = ({ route, navigation }) => {
     const { broadcast, idMember, idProduct, idCart, idJadwal, ongkir, potOngkir, potDiskon, jam, hargaJadwal } = route.params;
@@ -104,6 +105,19 @@ const Checkout = ({ route, navigation }) => {
         getCart()
     }, [])
 
+    const checkout = async (type) => {
+        const jsonValue = await AsyncStorage.getItem('user');
+        const idUser = await JSON.parse(jsonValue);   
+        const dat = { nameUser:idUser.nameUser, idCart: [idCart], totalAmount: (totalHarga+totalOngkir)};
+        const res = await Models.addTransactionProduct(dat);
+        if (res.code != '201') {
+          alert(`${res.message}`);
+          return true;
+        } else {
+            navigation.navigate('PesananSelesai')
+            await Linking.openURL(res.data.url);
+        }
+      };
     const CheckoutProduct = () => {
         if (broadcast === 'jadwal') {
             return <View style={{
@@ -200,7 +214,7 @@ const Checkout = ({ route, navigation }) => {
             navigation.navigate('Terdaftar')
             console.log('member terdaftar')
         } else {
-            navigation.navigate('PesananSelesai')
+            checkout()
             console.log('pesanan produk atau jadwal')
         }
     }
