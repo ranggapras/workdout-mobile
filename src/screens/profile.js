@@ -69,7 +69,7 @@ const profile = ({ navigation }) => {
             <Text pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' >{`${dataUser === null ? '' : dataUser.nameUser}`}</Text>
             <Text pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' >{`${dataUser === null ? '' : dataUser.email}`}</Text>
             <Text pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' >{`${dataUser === null ? '' : dataUser.phoneNumber}`}</Text>
-            <Text pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' >{`${dataUser === null ? 'Alamat' : dataUser.address}`}</Text>
+            <Text pl='2' mt='4' pb='2' w='100%' borderWidth="0" borderColor="white" borderBottomWidth="1" color='white' >{`${dataUser === null ? '' : dataUser.address}`}</Text>
             <Box w='100%' flexDirection='row' justifyContent='flex-end'>
               <Button ml="3" mt="2" bgColor="#7C9A92" _text={{ color: 'white', fontSize: 18 }} w='160' h='39' borderRadius='10'
                 onPress={press}>

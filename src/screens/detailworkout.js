@@ -7,7 +7,7 @@ import Foto from '../assets/trainer.png'
 import Models from '../models/Models'
 import moment from 'moment'
 import 'moment/locale/id'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const detailworkout = ({ route, navigation }) => {
     const thousand = val => (
         val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
@@ -45,7 +45,29 @@ const detailworkout = ({ route, navigation }) => {
         }
         getScheduleByIdWorkout()
     }, [idWorkout])
-
+    // const beliSekarang = async (type) => {
+    //     const jsonValue = await AsyncStorage.getItem('user');
+    //     const idUser = await JSON.parse(jsonValue);   
+    //     const dat = { idUser:idUser.id, amountItems: amountItems, idProduct: idProduct};
+    //     const res = await Models.postCart(dat);
+    //     console.log(res);
+    //     if (res.code != '201') {
+    //       alert(`${res.message}`);
+    //       return true;
+    //     } else {
+    //       if(type === 'beli'){
+    //         return navigation.navigate('Checkout', {
+    //             broadcast: 'jadwal',
+    //                     idSchedule: idSchedule,
+    //                     idMember: '', 
+    //                     idCart: res.data.idCart
+    //                 }
+    //         );
+    //       } else {
+    //         alert('Produk Ditambahkan Ke Keranjang')
+    //       }
+    //     }
+    //   };
     const PersonTrainer = () => {
         if (information == '') {
             return <View style={{

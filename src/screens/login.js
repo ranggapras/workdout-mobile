@@ -90,7 +90,7 @@ const login = ({ navigation }) => {
         <Heading size="lg" fontWeight="600" color="#FFFFFF" mt="5" marginX="15">
           Masuk
         </Heading>
-        <Heading mt="1" color="#BEC2C2" fontWeight="medium" size="md" mt="5" marginX="15" marginBottom="35" >
+        <Heading mt="1" color="#BEC2C2" fontWeight="medium" size="md" marginX="15" marginBottom="35" >
           Masuk ke Aplikasi WORKD Out
         </Heading>
         <VStack space={3} mt="5" marginX="15">
